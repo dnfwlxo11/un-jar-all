@@ -1,90 +1,45 @@
 <template>
     <div class="stat-player">
         <div class="custom-card">
-            <div class="row mt-3 mb-3">
-                <div class="col-4 text-right">
-                    <strong style="font-size: 35px;">손 흥 민</strong>
+            <div class="text-left">
+                <div style="font-size: 35px;">
+                    <strong class="mr-3">{{stats.name.split('').join(' ')}}</strong>
                 </div>
-                <div class="col-8 text-left">
-                    <span class="badge mr-2">강철몸</span>
-                    <span class="badge">득점왕</span>
-                    <div>
-                        <small>27세</small>
+                <div style="font-size: 24px;">
+                    <div class="mb-2">
+                        <span class="badge mr-2" v-for="(badge, idx) of stats.badges" :key="idx">
+                            {{badge}}
+                        </span>
+                    </div>
+                    <div style="font-size: 20px;">
+                        {{stats.age}}세
                     </div>
                 </div>
             </div>
             <hr>
-            <div class="row mb-3">
-                <div class="col-1"></div>
-                <div class="col-3 text-left">
-                    <div class="mb-2">
-                        <span>포지션</span>
+            <div class="stat" v-for="(statKor, statName) in stat_variation" :key="statName">
+                <div v-if="stats[statName]" class="row mb-5">
+                    <div class="col-4 text-left">
+                        {{statKor}}
                     </div>
-                    <div class="mb-2">&nbsp;</div>
-                    <div class="mb-2">&nbsp;</div>
-                    <div class="mb-2">
-                        <span>생년월일</span>
-                    </div>
-                    <div class="mb-2">
-                        <span>키</span>
-                    </div>
-                    <div class="mb-2">
-                        <span>몸무게</span>
-                    </div>
-                </div>
-                <div class="col-8 text-left">
-                    <div class="mb-2">
-                        <span class="fw-icon">LW</span> 좌측 윙포워드, <span class="fw-icon">RW</span> 오측 윙포워드
-                    </div>
-                    <div class="mb-2">
-                        <span class="fw-icon">ST</span> 스트라이커
-                    </div>
-                    <div class="mb-2">
-                        <span class="fw-icon">SS</span> 세컨드 스트라이커
-                    </div>
-                    <div class="mb-2">
-                        <span>1992.08.28</span>
-                    </div>
-                    <div class="mb-2">
-                        <span>183cm</span>
-                    </div>
-                    <div class="mb-2">
-                        <span>77kg</span>
-                    </div>
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-1"></div>
-                <div class="col-3 text-left">
-                    <div class="mb-2">
-                        <span>학력</span>
-                    </div>
-                </div>
-                <div class="col-8 text-left">
-                    <div class="mb-2">
-                        <span>동북중학교</span>
-                    </div>
-                    <div class="mb-2">
-                        <span>동북고등학교</span>
-                    </div>
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-1"></div>
-                <div class="col-3 text-left">
-                    <div class="mb-2">
-                        <span>소속팀</span>
-                    </div>
-                </div>
-                <div class="col-8 text-left">
-                    <div class="mb-2">
-                        <span>함부르크 SV</span>
-                    </div>
-                    <div class="mb-2">
-                        <span>바이어 04 레버쿠젠</span>
-                    </div>
-                    <div class="mb-2">
-                        <span>토트넘 홋스퍼 FC</span>
+                    <div class="col-8 text-left">
+                        <div v-if="statName === 'position'">
+                            <div v-for="(positionName, idx) of Object.keys(stats[statName])" :key="idx">
+                                <div v-for="(position, idx) of stats[statName][positionName]" :key="idx">
+                                    <div class="mb-2">
+                                        <span :class="positionName" class="position-icon">{{position}}</span> {{positionDict[position]}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div v-else-if="statName === 'teams' || statName === 'school'">
+                            <div v-for="(item, idx) of stats[statName]" :key="idx">
+                                <div class="mb-1">{{item}}</div>
+                            </div>
+                        </div>
+                        <div v-else>
+                            {{stats[statName]}}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -92,24 +47,69 @@
     </div>
 </template>
 <script>
+import { position } from '@/assets/dummy.js'
+
 export default {
-    name: 'StatPlayer'
+    name: 'StatPlayer',
+    props: {
+        stats: {
+            type: Object,
+            default: () => {
+                return null
+            }
+        }
+    },
+    data() {
+        return {
+            positionDict: {},
+            stat_variation: {
+                'position': '포지션',
+                'birth': '생년월일',
+                'height': '키',
+                'weight': '몸무게',
+                'school': '학력',
+                'teams': '소속팀',
+            },
+            position: null,
+            position_detail: null,
+            birth: null,
+            height: null,
+            weight: null,
+            school: null,
+            teams: [],
+        }
+    },
+    mounted() {
+        this.positionDict = position,
+
+        this.position = this.stats.position
+        this.birth = this.stats.birth
+        this.height = this.stats.height
+        this.weight = this.stats.weight
+        this.school = this.stats.school
+        this.teams = this.stats.teams
+    }
 }
 </script>
 <style lang="scss" scoped>
 hr {
-    color: lightgrey;
+    border: 1px solid #FFF;
+    margin-bottom: 30px;
 }
 
 .badge {
     background: #35435D;
     padding: 5px;
+    font-size: 18px;
+}
+
+.stat-player {
+    height: 100%;
 }
 
 .custom-card {
     color: #FFF;
-    min-height: 500px;
-    max-height: 700px;
+    height: 100%;
     background-color: #1E2025;
     border-radius: 0.5rem;
     padding-left: 30px;
@@ -118,21 +118,30 @@ hr {
     padding-bottom: 15px;
 }
 
-.fw-icon {
-    height: 20px;
-    width: 20px;
-    padding: 3px;
+.position-icon {
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 20px;
+    font-size: 8px;
+    height: 22px;
+    width: 22px;
     border-radius: 50%;
+}
+
+.fw {
     background-color: #FF4D4F;
 }
 
-.mf-icon {
-    border-radius: 50%;
+.mf {
     background-color: #4D8D44;
 }
 
-.df-icon {
-    border-radius: 50%;
+.df {
     background-color: #0392E6;
+}
+
+.stat {
+    font-size: 18px;
 }
 </style>

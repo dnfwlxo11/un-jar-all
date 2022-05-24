@@ -1,7 +1,11 @@
 <template>
     <div class="stat-card">
         <div class="card custom-card">
-            <div class="stat-title">{{title}}</div>
+            <div class="stat-title">
+                <strong>
+                    {{title}}
+                </strong>
+            </div>
             <div class="stat-content">{{content}}</div>
         </div>
     </div>
@@ -28,6 +32,10 @@ export default {
     max-height: 300px;
     background-color: #1E2025;
     border-radius: 0.5rem;
+}
+
+.stat-title {
+    font-size: 20px;
 }
 
 .stat-title,

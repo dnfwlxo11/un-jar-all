@@ -1,14 +1,14 @@
 <template>
     <div class="nav-bar">
         <div class="row m-0 p-0" style="height: 40px;">
-            <div class="col-2 mt-auto mb-auto">
-                <span style="font-size: 20px;">운 잘 알</span>
+            <div class="col-2 h-100 menus" @click="$router.push('/', () => {})">
+                <span style="font-size: 24px;">운 잘 알</span>
             </div>
-            <div class="col mt-auto mb-auto">
-                <i class="mdi mdi-soccer"></i> 축구
+            <div class="col h-100 menus select-menu">
+                <i class="mdi mdi-soccer"></i>&nbsp;축구
             </div>
-            <div class="col mt-auto mb-auto">
-                <i class="mdi mdi-volleyball"></i> 배구
+            <div class="col h-100 menus">
+                <i class="mdi mdi-volleyball"></i>&nbsp;배구
             </div>
             <div class="col-5"></div>
             <div class="col mt-auto mb-auto">
@@ -30,6 +30,17 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.menus {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.select-menu {
+    border-radius: 0.75rem 0.75rem 0 0;
+    background-color: #27282d;
+}
+
 .nav-bar {
     color: #FFF;
     height: 40px;

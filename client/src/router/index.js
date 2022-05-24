@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import Main from '../views/main/Main.vue'
 import Player from '../views/player/Player.vue'
 
 Vue.use(VueRouter)
@@ -13,12 +12,7 @@ const routes = [
     component: Home
   },
   {
-    path: '/main',
-    name: 'Main',
-    component: Main
-  },
-  {
-    path: '/player',
+    path: '/player/:playerName',
     name: 'Player',
     component: Player
   },
