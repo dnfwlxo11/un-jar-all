@@ -44,7 +44,7 @@ const kane = {
     'profile': 'kane',
     'name': '해리케인',
     'born': '영국',
-    'badges': ['성골', '영국왕', '축구바보'],
+    'badges': ['성골', '영국최고', '축구바보'],
     'position': {
         'fw': ['ST']
     }, 
