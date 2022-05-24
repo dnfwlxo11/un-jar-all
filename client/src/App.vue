@@ -34,8 +34,6 @@ html, body {
   color: #FFF;
   border: 1px solid #FFF;
   border-radius: 0.25rem;
-  padding-top: 3px;
-  padding-bottom: 3px;
   padding-left: 15px;
   padding-right: 15px;
   text-align: center;
@@ -46,8 +44,6 @@ html, body {
   color: #35435D;
   border: 1px solid #35435D;
   border-radius: 0.25rem;
-  padding-top: 3px;
-  padding-bottom: 3px;
   padding-left: 15px;
   padding-right: 15px;
   text-align: center;

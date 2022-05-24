@@ -1,8 +1,8 @@
 <template>
     <div class="stat-card">
         <div class="card custom-card">
-            <div>{{title}}</div>
-            <div>{{value}}</div>
+            <div class="stat-title">{{title}}</div>
+            <div class="stat-content">{{content}}</div>
         </div>
     </div>
 </template>
@@ -14,7 +14,7 @@ export default {
             type: String,
             default: '지표'
         },
-        value: {
+        content: {
             type: Number,
             default: 0
         }
@@ -23,6 +23,16 @@ export default {
 </script>
 <style lang="scss" scoped>
 .custom-card {
+    color: #FFF;
+    max-width: 400px;
+    max-height: 300px;
     background-color: #1E2025;
+    border-radius: 0.5rem;
+}
+
+.stat-title,
+.stat-content {
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 </style>
