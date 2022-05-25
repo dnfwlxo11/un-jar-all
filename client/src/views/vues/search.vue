@@ -5,6 +5,14 @@
             <i class="search-icon mdi mdi-magnify" style="font-size: 20px;"></i>
         </button>
     </div>
+    <!-- <div class="input-group">
+        <input type="text" class="form-control" placeholder="Recipient's username">
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button">
+                <i class="search-icon mdi mdi-magnify"></i>
+            </button>
+        </div>
+    </div> -->
 </template>
 
 <script>
@@ -28,7 +36,7 @@ export default {
 .search-input {
     color: #FFF;
     text-align: left;
-    margin-top: 0px;
+    padding: 0px;
     padding-left: 10px;
     outline: none;
     border: none;

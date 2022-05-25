@@ -1,9 +1,9 @@
 <template>
     <div class="logo">
-        <div class="main-title">
-            <strong>운 잘 알</strong>
-        </div>
         <div>
+            <!-- <div class="main-title">
+                <strong class="d-flex justify-content-center align-items-center">운 잘 알</strong>
+            </div> -->
             <img src="@/assets/logo.jpg">
         </div>
     </div>
@@ -24,7 +24,6 @@ img {
     height: 300px;
     color: #FFF;
     width: 70%;
-    height: 300px;
     background-color: #35435D;
     border-radius: 0.5rem;
 }
@@ -35,7 +34,7 @@ img {
     z-index: 2;
     position: absolute;
     left: 50%;
-    top: 35%;
+    top: 50%;
     transform: translate(-50%, -50%);
     color: white;
 }

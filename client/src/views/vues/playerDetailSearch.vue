@@ -14,132 +14,95 @@
             </div>
             <hr>
             <div class="text-left">
-                <div class="row mb-4">
-                    <div class="col">
+                <div class="row mb-5">
+                    <div class="col-3">
                         <div class="row">
-                            <div class="col-6 text-center" style="font-size: 20px;">
+                            <div class="col-6 text-center mt-auto mb-auto" style="font-size: 20px;">
                                 <strong>주발</strong>
                             </div>
-                            <div class="col-6">
-                                <i class="mdi mdi-foot-print mr-2" style="font-size: 30px;"></i>
+                            <div class="col-6 mt-auto mb-auto">
+                                <i class="mdi mdi-foot-print mr-3" style="font-size: 30px;"></i>
                                 <i class="mdi mdi-foot-print reverse-icon" style="font-size: 30px;"></i>
                             </div>
                         </div>
                     </div>
-                    <div class="col">
+                    <div class="col-4">
                         <div class="row">
-                            <div class="col-4 text-center" style="font-size: 20px;">
+                            <div class="col-2 text-center mt-auto mb-auto" style="font-size: 20px;">
                                 <strong>키</strong>
                             </div>
-                            <div class="col-3">
-                                <input class="form-control" type="number">
+                            <div class="col-4">
+                                <input class="form-control" type="number" placeholder="100">
                             </div>
                             <span class="d-flex justify-content-center align-items-center" style="font-size: 20px;">~</span>
-                            <div class="col-3">
-                                <input class="form-control" type="number">
+                            <div class="col-4">
+                                <input class="form-control" type="number" placeholder="220">
                             </div>
                             <span class="d-flex justify-content-center align-items-center" style="font-size: 20px;">cm</span>
                         </div>
                     </div>
-                    <div class="col">
+                    <div class="col-5">
                         <div class="row">
-                            <div class="col-4 text-center" style="font-size: 20px;">
+                            <div class="col-3 text-center" style="font-size: 20px;">
                                 <strong>몸무게</strong>
                             </div>
-                            <div class="col-3">
-                                <input class="form-control" type="number">
+                            <div class="col-4">
+                                <input class="form-control" type="number" placeholder="1">
                             </div>
                             <span class="d-flex justify-content-center align-items-center" style="font-size: 20px;">~</span>
-                            <div class="col-3">
-                                <input class="form-control" type="number">
+                            <div class="col-4">
+                                <input class="form-control" type="number" placeholder="150">
                             </div>
                             <span class="d-flex justify-content-center align-items-center" style="font-size: 20px;">kg</span>
                         </div>
                     </div>
                 </div>
-                <div class="row mb-4">
+                <div class="row mb-5">
                     <div class="col">
                         <div class="row">
-                            <div class="col-6 text-center" style="font-size: 20px;">
-                                <strong>주발</strong>
+                            <div class="col-4 text-center" style="font-size: 20px;">
+                                <strong>소속리그</strong>
                             </div>
-                            <div class="col-6">
-                                <i class="mdi mdi-foot-print mr-2" style="font-size: 30px;"></i>
-                                <i class="mdi mdi-foot-print reverse-icon" style="font-size: 30px;"></i>
+                            <div class="col-8">
+                                <input class="form-control" type="text" placeholder="K-League">
                             </div>
                         </div>
                     </div>
                     <div class="col">
                         <div class="row">
                             <div class="col-4 text-center" style="font-size: 20px;">
-                                <strong>키</strong>
+                                <strong>소속팀</strong>
                             </div>
-                            <div class="col-3">
-                                <input class="form-control" type="number">
+                            <div class="col-8">
+                                <input class="form-control" type="text" placeholder="전북현대FC">
                             </div>
-                            <span class="d-flex justify-content-center align-items-center" style="font-size: 20px;">~</span>
-                            <div class="col-3">
-                                <input class="form-control" type="number">
-                            </div>
-                            <span class="d-flex justify-content-center align-items-center" style="font-size: 20px;">cm</span>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="row">
-                            <div class="col-4 text-center" style="font-size: 20px;">
-                                <strong>몸무게</strong>
-                            </div>
-                            <div class="col-3">
-                                <input class="form-control" type="number">
-                            </div>
-                            <span class="d-flex justify-content-center align-items-center" style="font-size: 20px;">~</span>
-                            <div class="col-3">
-                                <input class="form-control" type="number">
-                            </div>
-                            <span class="d-flex justify-content-center align-items-center" style="font-size: 20px;">kg</span>
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row mb-5">
                     <div class="col">
                         <div class="row">
-                            <div class="col-6 text-center" style="font-size: 20px;">
-                                <strong>주발</strong>
+                            <div class="col-4 text-center" style="font-size: 20px;">
+                                <strong>나이</strong>
                             </div>
-                            <div class="col-6">
-                                <i class="mdi mdi-foot-print mr-2" style="font-size: 30px;"></i>
-                                <i class="mdi mdi-foot-print reverse-icon" style="font-size: 30px;"></i>
+                            <div class="col-3">
+                                <input class="form-control" type="number" placeholder="1">
                             </div>
+                            <span class="d-flex justify-content-center align-items-center" style="font-size: 20px;">~</span>
+                            <div class="col-3">
+                                <input class="form-control" type="number" placeholder="100">
+                            </div>
+                            <span class="d-flex justify-content-center align-items-center" style="font-size: 20px;">세</span>
                         </div>
                     </div>
                     <div class="col">
                         <div class="row">
                             <div class="col-4 text-center" style="font-size: 20px;">
-                                <strong>키</strong>
+                                <strong>국적</strong>
                             </div>
-                            <div class="col-3">
-                                <input class="form-control" type="number">
+                            <div class="col-8">
+                                <input class="form-control" type="text" placeholder="한국">
                             </div>
-                            <span class="d-flex justify-content-center align-items-center" style="font-size: 20px;">~</span>
-                            <div class="col-3">
-                                <input class="form-control" type="number">
-                            </div>
-                            <span class="d-flex justify-content-center align-items-center" style="font-size: 20px;">cm</span>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="row">
-                            <div class="col-4 text-center" style="font-size: 20px;">
-                                <strong>몸무게</strong>
-                            </div>
-                            <div class="col-3">
-                                <input class="form-control" type="number">
-                            </div>
-                            <span class="d-flex justify-content-center align-items-center" style="font-size: 20px;">~</span>
-                            <div class="col-3">
-                                <input class="form-control" type="number">
-                            </div>
-                            <span class="d-flex justify-content-center align-items-center" style="font-size: 20px;">kg</span>
                         </div>
                     </div>
                 </div>

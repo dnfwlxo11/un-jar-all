@@ -47,6 +47,7 @@
     </div>
 </template>
 <script>
+
 import { position } from '@/assets/dummy.js'
 
 export default {

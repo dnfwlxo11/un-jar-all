@@ -1,14 +1,18 @@
 <template>
     <div class="nav-bar">
-        <div class="row m-0 p-0" style="height: 40px;">
+        <div class="row m-0 p-0">
             <div class="col-2 h-100 menus" @click="$router.push('/', () => {})">
                 <span style="font-size: 24px;">운 잘 알</span>
             </div>
-            <div class="col h-100 menus select-menu">
-                <i class="mdi mdi-soccer"></i>&nbsp;축구
+            <div class="col h-100 menus" :class="{'select-menu': currRoute==='soccer'}">
+                <div class="d-flex align-items-center" style="height: 40px;" @click="pageMove('soccer')">
+                    <i class="mdi mdi-soccer"></i>&nbsp;축구
+                </div>
             </div>
-            <div class="col h-100 menus">
-                <i class="mdi mdi-volleyball"></i>&nbsp;배구
+            <div class="col menus" :class="{'select-menu': currRoute==='volly'}">
+                <div class="d-flex align-items-center" style="height: 40px;" @click="pageMove('volly')">
+                    <i class="mdi mdi-volleyball"></i>&nbsp;배구
+                </div> 
             </div>
             <div class="col-5"></div>
             <div class="col mt-auto mb-auto">
@@ -26,10 +30,28 @@
 </template>
 <script>
 export default {
-    name: 'NavBar'
+    name: 'NavBar',
+    data() {
+        return {
+            currRoute: 'soccer',
+        }
+    },
+    methods: {
+        pageMove(target) {
+            this.currRoute = target
+
+            // if (this.currRoute === 'soccer') window.location.href = 'http://localhost:8080/'
+            // else if (this.currRoute === 'volly') window.location.href = 'http://localhost:8080/'
+        },
+    }
 }
 </script>
 <style lang="scss" scoped>
+a {
+    color: #FFF;
+    text-decoration: none;
+}
+
 .menus {
     display: flex;
     justify-content: center;
@@ -45,7 +67,7 @@ export default {
     color: #FFF;
     height: 40px;
     background-color: #35435D;
-    padding-bottom: 40px;
+    // padding-bottom: 40px;
 }
 
 .lang-selector {

@@ -1,9 +1,12 @@
 <template>
   <div class="home">
     <nav-bar></nav-bar>
-    <div class="container mt-5 mb-5">
+    <div class="container mt-5 mb-5" style="padding: 40px 15px;">
       <logo class="mb-5"></logo>
-      <search class="mb-5"></search>
+      <div class="mb-3">
+        <img class="league-logo" src="@/assets/epl_logo.png">
+      </div>
+      <search class="mb-5 d-flex justify-content-center"></search>
       <player-by-position class="mb-5"></player-by-position>
       <player-of-the-day class="mb-5"></player-of-the-day>
       <player-detail-search class="mb-5"></player-detail-search>
@@ -31,5 +34,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.league-logo {
+  padding: 5px;
+  height: 40px;
+  border-radius: 0.25rem;
+  background-color: #E0E0E0;
+}
 </style>
