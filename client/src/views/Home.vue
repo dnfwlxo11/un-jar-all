@@ -4,7 +4,7 @@
     <div class="container mt-5 mb-5" style="padding: 40px 15px;">
       <logo class="mb-5"></logo>
       <div class="mb-3">
-        <img class="league-logo" src="@/assets/epl_logo.png">
+        <img class="league-logo mr-3" :src="require(`@/assets/${league}-logo.png`)" v-for="(league, idx) of leagues" :key="idx">
       </div>
       <search class="mb-5 d-flex justify-content-center"></search>
       <player-by-position class="mb-5"></player-by-position>
@@ -30,6 +30,11 @@ export default {
     PlayerDetailSearch,
     PlayerOfTheDay,
   },
+  data() {
+    return {
+      leagues: ['epl', 'laliga', 'bundes', 'ligue1', 'seria']
+    }
+  },
 }
 </script>
 
@@ -37,7 +42,9 @@ export default {
 .league-logo {
   padding: 5px;
   height: 40px;
+  width: 80px;
   border-radius: 0.25rem;
   background-color: #E0E0E0;
+  object-fit: contain;
 }
 </style>
