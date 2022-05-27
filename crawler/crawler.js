@@ -1,6 +1,21 @@
 const puppeteer = require('puppeteer');
 const cheerio = require('cheerio');
 const fs = require('fs');
+const https = require('https');
+
+function download(url, dest) {
+    console.log(url, dest, 'url, dest')
+
+    const file = fs.createWriteStream(dest)
+
+    https.get(url, (response) => {
+        response.pipe(file)
+
+        file.on('finish', () => {
+            file.close()
+        })
+    })
+} 
 
 function delay(time) {
     return new Promise((resolve, reject) => {
@@ -74,10 +89,17 @@ async function getPlayerDetail(page, url) {
         const overviewPage = await page.content();
 
         const overview = cheerio.load(overviewPage);
+
         const playerName = overview('.playerDetails .name').text();
+
+        const profileImgUrl = overview('.imgContainer img').attr('src');
+        const fileName = `./exports/profileImg/${playerName}.png`;
+
+        download(profileImgUrl, fileName);
+
         const playerInfo = overview('.personalDetails');
         const playerCountry = playerInfo.find('.playerCountry').text();
-        const playerBirth = playerInfo.find('.pdcol2 .info').text().replace(/\r\n|\r|\n/g, '').trim().split('/').reverse().join('.');
+        const playerBirth = playerInfo.find('.pdcol2 .info').text().replace(/\r\n|\r|\n/g, '').trim();
         const playerClubHistory = overview('.playerClubHistory table tbody .table');
         const teams = [];
 
@@ -97,8 +119,27 @@ async function getPlayerDetail(page, url) {
 
         await page.goto(`${url}/stats`, { waitUntil : ['load','domcontentloaded','networkidle0','networkidle2'] });
         await page.waitForSelector('body');
-        const statsPage = await page.content();
 
+        await page.click('.js-accept-all-close')
+        await delay(200);
+
+        const filterBtn = await page.$('.pageFilter__filter-btn');
+        await filterBtn.evaluate(elem => elem.click());
+        await delay(200);
+
+        const dropdownBtn = await page.$('.dropDown.mobile .current');
+        await dropdownBtn.evaluate(elem => elem.click());
+        await delay(200);
+
+        const seasonBtn = await page.$$('.dropDown.mobile .dropdownList li');
+        seasonBtn[1].evaluate(elem => elem.click())
+        await delay(200);
+
+        const filterApplyBtn = await page.$('.btn-highlight');
+        await filterApplyBtn.evaluate(elem => elem.click());
+        await delay(200);
+
+        const statsPage = await page.content();
         const stats = cheerio.load(statsPage);
 
         let player = {};
@@ -176,9 +217,12 @@ async function analyzePage() {
     const browser = await puppeteer.launch({ headless: false });
     const page = await browser.newPage();
     
+    let cnt = 1
     for await (player of playerList) {
+        console.log(`${cnt}번째 작업 중`)
         let result = await getPlayerDetail(page, player['playerDetailUrl']);
         if (result) playersInformation.push(result);
+        cnt+=1
     }
 
     await browser.close();
