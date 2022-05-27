@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <nav-bar></nav-bar>
-    <div class="container mt-5 mb-5" style="padding: 40px 15px;">
+    <div class="container mb-5" style="padding: 90px 15px;">
       <logo class="mb-5"></logo>
       <div class="mb-3">
         <img class="league-logo mr-3" :src="require(`@/assets/${league}-logo.png`)" v-for="(league, idx) of leagues" :key="idx">

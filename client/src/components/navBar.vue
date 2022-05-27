@@ -30,13 +30,13 @@
             <div class="sub-nav-bar" v-if="currRoute === 'soccer'">
                 <div class="row h-100">
                     <div class="col mt-auto mb-auto" @click="$router.push('/')">
-                        <span :class="{'select-sub-target': subTarget === 'home'}">홈</span>
+                        <span :class="{'select-sub-target': subTarget === '/'}">홈</span>
                     </div>
                     <div class="col mt-auto mb-auto" @click="$router.push('/cummunity')">
-                        <span :class="{'select-sub-target': subTarget === 'cummunity'}">커뮤니티</span>
+                        <span :class="{'select-sub-target': subTarget === '/cummunity'}">커뮤니티</span>
                     </div>
                     <div class="col mt-auto mb-auto" @click="$router.push('/squardBattle')">
-                        <span :class="{'select-sub-target': subTarget === 'battle'}">스쿼드 배틀</span>
+                        <span :class="{'select-sub-target': subTarget === '/squardBattle'}">스쿼드 배틀</span>
                     </div>
                     <div class="col-6"></div>
                 </div>
@@ -62,8 +62,8 @@ export default {
             // else if (this.currRoute === 'volly') window.location.href = 'http://localhost:8080/'
         },
     },
-    mounted() {
-        
+    created() {
+        this.subTarget = this.$route.path
     },
 }
 </script>

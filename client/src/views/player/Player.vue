@@ -1,7 +1,7 @@
 <template>
     <div class="player">
         <nav-bar></nav-bar>
-        <div class="container pt-5 pb-5">
+        <div class="container mb-5" style="padding: 90px 15px;">
             <div class="row" style="margin-bottom: 80px;">
                 <div class="col-5 profile-img">
                     <img :src="require(`@/assets/${playerStat.profile}.png`)">
@@ -80,6 +80,8 @@ export default {
         }
     },
     created() {
+        console.log(this.$route.path)
+
         const target = this.$route.params.playerName
 
         if (target === '손흥민') this.playerStat = son
