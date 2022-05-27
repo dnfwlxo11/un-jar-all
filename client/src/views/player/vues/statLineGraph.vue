@@ -1,5 +1,5 @@
 <template>
-    <div class="stat-graph">
+    <div class="stat-line-graph">
         <apexchart ref="lineChart" height="300" type="line" :options="chartOptions" :series="series"></apexchart>   
     </div>    
 </template>
@@ -7,7 +7,7 @@
 import VueApexCharts from 'vue-apexcharts'
 
 export default {
-    name: 'StatGraph',
+    name: 'StatLineGraph',
     components: {
         apexchart: VueApexCharts,
     },

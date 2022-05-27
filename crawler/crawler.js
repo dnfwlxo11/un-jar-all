@@ -4,8 +4,6 @@ const fs = require('fs');
 const https = require('https');
 
 function download(url, dest) {
-    console.log(url, dest, 'url, dest')
-
     const file = fs.createWriteStream(dest)
 
     https.get(url, (response) => {
@@ -59,6 +57,8 @@ async function getPlayerList() {
                 console.log(previousHeight, afterHeight, 'previousHeight, afterHeight')
                 break
             }
+
+            await delay(500)
         }
 
         await page.waitForSelector('.dataContainer');
@@ -76,14 +76,6 @@ async function getPlayerDetail(page, url) {
     try {
         await page.goto(url, { waitUntil : ['load','domcontentloaded','networkidle0','networkidle2'] });
 
-        // const cookieAcceptBtn = await page.$('.js-accept-all-close')
-        // await cookieAcceptBtn.click();
-
-        // await delay(2000)
-
-        // const popupCloseBtn = await page.waitForSelector('.closeBtn')
-        // await popupCloseBtn.click();
-
         await page.waitForSelector('body');
 
         const overviewPage = await page.content();
@@ -96,6 +88,7 @@ async function getPlayerDetail(page, url) {
         const fileName = `./exports/profileImg/${playerName}.png`;
 
         download(profileImgUrl, fileName);
+        await delay(200);
 
         const playerInfo = overview('.personalDetails');
         const playerCountry = playerInfo.find('.playerCountry').text();
@@ -120,27 +113,26 @@ async function getPlayerDetail(page, url) {
         await page.goto(`${url}/stats`, { waitUntil : ['load','domcontentloaded','networkidle0','networkidle2'] });
         await page.waitForSelector('body');
 
-        await page.click('.js-accept-all-close')
-        await delay(200);
-
         const filterBtn = await page.$('.pageFilter__filter-btn');
         await filterBtn.evaluate(elem => elem.click());
-        await delay(200);
+        await delay(500);
 
         const dropdownBtn = await page.$('.dropDown.mobile .current');
         await dropdownBtn.evaluate(elem => elem.click());
-        await delay(200);
+        await delay(500);
 
         const seasonBtn = await page.$$('.dropDown.mobile .dropdownList li');
         seasonBtn[1].evaluate(elem => elem.click())
-        await delay(200);
+        await delay(500);
 
         const filterApplyBtn = await page.$('.btn-highlight');
         await filterApplyBtn.evaluate(elem => elem.click());
-        await delay(200);
+        await delay(500);
 
         const statsPage = await page.content();
         const stats = cheerio.load(statsPage);
+
+        await delay(500);
 
         let player = {};
         const playerAppearances = Number(stats('.statappearances').text());
@@ -226,9 +218,6 @@ async function analyzePage() {
     }
 
     await browser.close();
-
-    console.log(playersInformation);
-
     
     const exportInformation = JSON.stringify({ 'data': playersInformation })
     const today = (new Date()).getTime()

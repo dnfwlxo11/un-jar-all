@@ -14,26 +14,55 @@
                 <strong style="color: white;font-size: 25px;">주 요 지 표</strong>
             </div>
             <div class="row m-0 p-0 w-100 text-center mb-5">
-                <div class="col">
-                    <stat-card :title="'골'" :content="playerStat.goal"></stat-card>
+                <div class="col mr-5">
+                    <div class="row mb-5">
+                        <div class="col">
+                            <stat-card :title="'Goals'" :content="playerStat.goal"></stat-card>
+                        </div>
+                    </div>
+                    <div class="row mb-5">
+                        <div class="col">
+                            <stat-card :title="'Appearances'" :content="playerStat.match"></stat-card>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <stat-card :title="'Passes'" :content="523"></stat-card>
+                        </div>
+                    </div>
+                </div>
+                <div class="col mr-5 mt-auto mb-auto">
+                    <stat-radar-chart></stat-radar-chart>
                 </div>
                 <div class="col">
-                    <stat-card :title="'도움'" :content="playerStat.assist"></stat-card>
-                </div>
-                <div class="col">
-                    <stat-card :title="'경기수'" :content="playerStat.match"></stat-card>
+                     <div class="row mb-5">
+                        <div class="col">
+                            <stat-card :title="'Assists'" :content="playerStat.assist"></stat-card>
+                        </div>
+                    </div>
+                    <div class="row mb-5">
+                        <div class="col">
+                            <stat-card :title="'Takles'" :content="74"></stat-card>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <stat-card :title="'Shots'" :content="121"></stat-card>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div>
-                <stat-chart></stat-chart>
-            </div>
+            <!-- <div>
+                <stat-line-chart></stat-line-chart>
+            </div> -->
         </div>
     </div>
 </template>
 <script>
 import statPlayer from './vues/statPlayer.vue'
 import statCard from './vues/statCard.vue'
-import statChart from './vues/statGraph.vue'
+import statLineChart from './vues/statLineGraph.vue'
+import statRadarChart from './vues/statRadarGraph.vue'
 
 import { son, kane, kul } from '@/assets/dummy.js'
 
@@ -42,7 +71,8 @@ export default {
     components: {
         statPlayer,
         statCard,
-        statChart,
+        statLineChart,
+        statRadarChart,
     },
     data() {
         return {

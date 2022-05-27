@@ -10,6 +10,8 @@
       <player-by-position class="mb-5"></player-by-position>
       <player-of-the-day class="mb-5"></player-of-the-day>
       <player-detail-search class="mb-5"></player-detail-search>
+      <player-versus-search class="mb-5"></player-versus-search>
+      <community-top-ten></community-top-ten>
     </div>
   </div>
 </template>
@@ -18,8 +20,10 @@
 import Logo from './vues/logo.vue'
 import Search from './vues/search.vue'
 import PlayerByPosition from './vues/playerByPosition.vue'
-import PlayerDetailSearch from './vues/playerDetailSearch.vue'
 import PlayerOfTheDay from './vues/playerOfTheDay.vue'
+import PlayerDetailSearch from './vues/playerDetailSearch.vue'
+import PlayerVersusSearch from './vues/playerVersusSearch.vue'
+import CommunityTopTen from './vues/communityTopTen.vue'
 
 export default {
   name: 'Home',
@@ -29,6 +33,8 @@ export default {
     PlayerByPosition,
     PlayerDetailSearch,
     PlayerOfTheDay,
+    PlayerVersusSearch,
+    CommunityTopTen,
   },
   data() {
     return {

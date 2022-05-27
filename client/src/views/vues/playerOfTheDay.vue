@@ -2,7 +2,7 @@
     <div class="player-of-the-day">
         <div class="custom-card">
             <div class="text-left" style="font-size: 25px;">
-                <strong>오늘의 수훈 선수</strong>
+                <strong>최다 검색 선수</strong>
             </div>
             <hr>
             <div class="row m-0 p-0" style="height: 80%;">
