@@ -16,7 +16,7 @@
                 <div class="col-6"></div>
                 <div class="col-3 d-flex">
                     <input class="search-input pr-3" style="width: 85%;" type="text" placeholder="검색">
-                    <button class="search-btn" style="width: 15%;" @click="searchPlayer">
+                    <button class="search-btn" style="width: 15%;">
                         <i class="search-icon mdi mdi-magnify" style="font-size: 20px;"></i>
                     </button>
                 </div>

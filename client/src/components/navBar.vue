@@ -29,13 +29,13 @@
         <div class="container">
             <div class="sub-nav-bar" v-if="currRoute === 'soccer'">
                 <div class="row h-100">
-                    <div class="col mt-auto mb-auto" @click="$router.push('/')">
+                    <div class="col mt-auto mb-auto" @click="$router.push('/', () => {})">
                         <span :class="{'select-sub-target': subTarget === '/'}">홈</span>
                     </div>
-                    <div class="col mt-auto mb-auto" @click="$router.push('/cummunity')">
+                    <div class="col mt-auto mb-auto" @click="$router.push('/cummunity', () => {})">
                         <span :class="{'select-sub-target': subTarget === '/cummunity'}">커뮤니티</span>
                     </div>
-                    <div class="col mt-auto mb-auto" @click="$router.push('/squardBattle')">
+                    <div class="col mt-auto mb-auto" @click="$router.push('/squardBattle', () => {})">
                         <span :class="{'select-sub-target': subTarget === '/squardBattle'}">스쿼드 배틀</span>
                     </div>
                     <div class="col-6"></div>

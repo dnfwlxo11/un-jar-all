@@ -17,6 +17,7 @@
                 </section>
                 <div>
                     페이지네이션 부분입니다.
+                    (이전, 다음 버튼만?)
                 </div>
             </section>
         </div>
