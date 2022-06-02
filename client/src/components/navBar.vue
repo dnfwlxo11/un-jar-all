@@ -89,6 +89,7 @@ a {
 }
 
 .nav-bar {
+    min-width: 1024px;
     color: #FFF;
     height: 40px;
     background-color: #35435D;

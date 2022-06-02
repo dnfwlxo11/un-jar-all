@@ -4,6 +4,7 @@
   "description": "",
   "dependencies": {
     "cheerio": "^1.0.0-rc.11",
+    "dotenv": "^16.0.1",
     "https": "^1.0.0",
     "puppeteer": "^14.1.1"
   },
