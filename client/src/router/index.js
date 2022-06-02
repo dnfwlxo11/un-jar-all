@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Player from '../views/player/Player.vue'
 import Community from '../views/cummunity/Community.vue'
-import SquardBattle from '../views/squardBattle/SquardBattle.vue'
+import SquadBattle from '../views/squadBattle/SquadBattle.vue'
 
 Vue.use(VueRouter)
 
@@ -24,9 +24,9 @@ const routes = [
     component: Community
   },
   {
-    path: '/squardBattle',
-    name: 'SquardBattle',
-    component: SquardBattle
+    path: '/squadBattle',
+    name: 'SquadBattle',
+    component: SquadBattle
   },
 ]
 
