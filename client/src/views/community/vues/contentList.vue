@@ -3,7 +3,7 @@
         <div class="custom-card">
             <section>
                 <section class="mb-5" v-for="(item, idx) of [1,2,3,4,5,6,7,8,9,10]" :key="idx">
-                    <div class="row">
+                    <div class="row m-0 p-0 content" @click="$router.push(`/community/content/${idx + 1}`)">
                         <div class="col-1 m-auto">
                             {{item}}
                         </div>
@@ -39,5 +39,9 @@ export default {
 img {
     width: 100%;
     object-fit: cover;
+}
+
+.content:hover {
+    background-color: lightgrey;
 }
 </style>

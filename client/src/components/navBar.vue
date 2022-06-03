@@ -9,11 +9,6 @@
                     <i class="mdi mdi-soccer"></i>&nbsp;축구
                 </div>
             </div>
-            <!-- <div class="col menus" :class="{'select-menu': currRoute==='volly'}">
-                <div class="d-flex align-items-center" style="height: 40px;" @click="pageMove('volly')">
-                    <i class="mdi mdi-volleyball"></i>&nbsp;배구
-                </div> 
-            </div> -->
             <div class="col-5"></div>
             <div class="col mt-auto mb-auto">
                 <i class="mdi mdi-web mr-2"></i>
@@ -32,11 +27,11 @@
                     <div class="col mt-auto mb-auto" @click="$router.push('/', () => {})">
                         <span :class="{'select-sub-target': subTarget === '/'}">홈</span>
                     </div>
-                    <div class="col mt-auto mb-auto" @click="$router.push('/cummunity', () => {})">
-                        <span :class="{'select-sub-target': subTarget === '/cummunity'}">커뮤니티</span>
+                    <div class="col mt-auto mb-auto" @click="$router.push('/community', () => {})">
+                        <span :class="{'select-sub-target': subTarget.includes('/community')}">커뮤니티</span>
                     </div>
-                    <div class="col mt-auto mb-auto" @click="$router.push('/squardBattle', () => {})">
-                        <span :class="{'select-sub-target': subTarget === '/squardBattle'}">스쿼드 배틀</span>
+                    <div class="col mt-auto mb-auto" @click="$router.push('/squadBattle', () => {})">
+                        <span :class="{'select-sub-target': subTarget === '/squadBattle'}">스쿼드 배틀</span>
                     </div>
                     <div class="col-6"></div>
                 </div>

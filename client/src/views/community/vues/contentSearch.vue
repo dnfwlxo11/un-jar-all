@@ -7,7 +7,7 @@
                 </div>
                 <div class="col-8"></div>
                 <div class="col ml-auto text-right">
-                    <button class="btn btn-outline-primary">글쓰기</button>
+                    <button class="btn btn-outline-primary" @click="$router.push('/community/editor')">글쓰기</button>
                 </div>
             </div>
             <div class="row m-0 p-0">

@@ -1,5 +1,5 @@
 <template>
-    <div class="squard-battle">
+    <div class="squad-battle">
         <nav-bar></nav-bar>
         <div class="container mb-5" style="padding: 90px 15px;">
             <div class="d-flex mb-5">
@@ -36,14 +36,13 @@
                         </div>
                     </div>
                 </div>
-                
             </div>
         </div>
     </div>
 </template>
 <script>
 export default {
-    name: 'SquardBattle',
+    name: 'SquadBattle',
     data() {
         return {
             command: ['→', '←', '←', '↑', '↓']
