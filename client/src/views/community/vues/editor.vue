@@ -10,13 +10,13 @@
                 </div>
                 <div class="content-title mb-3">
                     <div class="row">
-                        <div class="col">
+                        <div class="col pr-0">
                             <input class="w-100" type="text" placeholder="제목">
                         </div>
                         <div class="col-2">
-                            <div>
-                                카테고리 지정
-                            </div>
+                            <select class="w-100 h-100">
+                                <option v-for="(item, idx) of contentCategories" :value="item" :key="idx">{{ item }}</option>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -59,7 +59,7 @@ export default {
     },
     data() {
         return {
-            
+            contentCategories: ['자유', '정치', '게임', '개그']
         }
     }
 }
@@ -71,10 +71,18 @@ export default {
     background-color: #E0E0E0;
     // border-radius: 0.5rem;
     padding: 30px 50px 30px 50px;
+    min-width: 720px;
 }
 
 .title {
     font-size: 20px;
+}
+
+.content-title {
+    input {
+        padding-left: 10px;
+        height: 40px;
+    }
 }
 
 .content-body {

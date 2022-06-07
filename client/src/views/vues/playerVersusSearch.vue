@@ -60,7 +60,7 @@ hr {
     color: #FFF;
     height: 550px;
     background-color: #1E2025;
-    border-radius: 0.5rem;
+    // border-radius: 0.5rem;
     padding: 30px;
 }
 

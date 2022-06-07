@@ -79,7 +79,7 @@ export default {
 
 .player-by-position {
     background-color: #E0E0E0;
-    border-radius: 0.5rem;
+    // border-radius: 0.5rem;
     height: 500px;
     
     & img {

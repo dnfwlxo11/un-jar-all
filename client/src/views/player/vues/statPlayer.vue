@@ -112,7 +112,7 @@ hr {
     color: #FFF;
     height: 100%;
     background-color: #1E2025;
-    border-radius: 0.5rem;
+    // border-radius: 0.5rem;
     padding-left: 30px;
     padding-right: 30px;
     padding-top: 15px;
@@ -127,7 +127,7 @@ hr {
     font-size: 8px;
     height: 22px;
     width: 22px;
-    border-radius: 50%;
+    // border-radius: 50%;
 }
 
 .fw {

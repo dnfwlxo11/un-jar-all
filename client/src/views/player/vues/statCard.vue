@@ -31,7 +31,7 @@ export default {
     max-width: 400px;
     max-height: 300px;
     background-color: #1E2025;
-    border-radius: 0.5rem;
+    // border-radius: 0.5rem;
 }
 
 .stat-title {

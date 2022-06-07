@@ -41,7 +41,7 @@ export default {
     outline: none;
     border: none;
     background-color: #35435D;
-    border-radius: 0.5rem 0 0 0.5rem;
+    // border-radius: 0.5rem 0 0 0.5rem;
     width: 50%;
     height: 40px;
 }
@@ -60,7 +60,7 @@ export default {
     border: none;
     border-left: 2px solid #27282d;
     background-color: #35435D;
-    border-radius: 0 0.5rem 0.5rem 0;
+    // border-radius: 0 0.5rem 0.5rem 0;
     height: 40px;
 }
 </style>

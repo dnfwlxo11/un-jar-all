@@ -27,7 +27,7 @@ export default {
 <style lang="scss" scoped>
 .command {
     background-color: #FFF;
-    border-radius: 0.25rem;
+    // border-radius: 0.25rem;
 }
 
 .command-line {

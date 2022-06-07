@@ -49,7 +49,7 @@ export default {
   padding: 5px;
   height: 40px;
   width: 80px;
-  border-radius: 0.25rem;
+  // border-radius: 0.25rem;
   background-color: #E0E0E0;
   object-fit: contain;
 }
