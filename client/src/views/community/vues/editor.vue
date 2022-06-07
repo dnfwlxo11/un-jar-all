@@ -7,12 +7,21 @@
                     <div class="title text-left mb-3 mr-3">
                         <strong>게시글 작성</strong>
                     </div>
-                    <div>
-                        카테고리 지정
+                </div>
+                <div class="content-title mb-3">
+                    <div class="row">
+                        <div class="col">
+                            <input class="w-100" type="text" placeholder="제목">
+                        </div>
+                        <div class="col-2">
+                            <div>
+                                카테고리 지정
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="d-flex mb-3">
-                    <div class="editor-option mr-2">
+                <div class="d-flex mb-1">
+                    <div class="editor-option ml-3 mr-2">
                         <i class="mdi mdi-format-bold"></i>
                     </div>
                     <div class="editor-option mr-2">
@@ -31,8 +40,8 @@
                         <i class="mdi mdi-format-align-justify"></i>
                     </div>
                 </div>
-                <div class="content-input mb-3">
-                    <input class="w-100 h-100" type="text">
+                <div class="content-body mb-3">
+                    <textarea class="w-100 h-100" placeholder="남을 비방하거나 혐오, 갈등을 유발하는 글은 제재조치 될 수 있습니다." />
                 </div>
                 <div class="text-right">
                     <button class="btn btn-outline-dark">등록</button>
@@ -60,24 +69,29 @@ export default {
 .custom-card {
     color: #000;
     background-color: #E0E0E0;
-    border-radius: 0.5rem;
+    // border-radius: 0.5rem;
     padding: 30px 50px 30px 50px;
 }
 
 .title {
-    font-size: 30px;
+    font-size: 20px;
 }
 
-.content-input {
+.content-body {
     width: 100%;
     height: 500px;
+
+    textarea {
+        padding-top: 10px;
+        padding-left: 10px;
+        outline: none;
+    }
 }
 
 .editor-option {
     width: 25px;
     height: 25px;
-    background-color: lightslategray;
-    border-radius: 0.25rem;
+    // border-radius: 0.25rem;
 }
 
 .editor-option:hover {

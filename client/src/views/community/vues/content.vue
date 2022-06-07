@@ -111,7 +111,7 @@ export default {
 .down-btn {
     height: 50px;
     border: 1px solid gray;
-    border-radius: 0.25rem;
+    // border-radius: 0.25rem;
     font-size: 30px;
 }
 

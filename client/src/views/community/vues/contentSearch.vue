@@ -11,8 +11,8 @@
                 </div>
             </div>
             <div class="row m-0 p-0">
-                <div class="col m-auto">전체</div>
-                <div class="col m-auto">인기</div>
+                <div class="col m-auto"><i class="mdi mdi-notification-clear-all" style="font-size: 15px;"></i> 전체</div>
+                <div class="col m-auto"><i class="mdi mdi-fire" style="font-size: 15px;"></i> 인기</div>
                 <div class="col-6"></div>
                 <div class="col-3 d-flex">
                     <input class="search-input pr-3" style="width: 85%;" type="text" placeholder="검색">
@@ -40,7 +40,7 @@ export default {
     color: #000;
     height: 120px;
     background-color: #E0E0E0;
-    border-radius: 0.5rem;
+    // border-radius: 0.5rem;
     padding: 10px 10px 30px 30px;
 }
 
@@ -52,7 +52,7 @@ export default {
     outline: none;
     border: none;
     background-color: #35435D;
-    border-radius: 0.5rem 0 0 0.5rem;
+    // border-radius: 0.5rem 0 0 0.5rem;
     width: 50%;
     height: 40px;
 }
@@ -71,7 +71,7 @@ export default {
     border: none;
     border-left: 2px solid #27282d;
     background-color: #35435D;
-    border-radius: 0 0.5rem 0.5rem 0;
+    // border-radius: 0 0.5rem 0.5rem 0;
     height: 40px;
 }
 </style>

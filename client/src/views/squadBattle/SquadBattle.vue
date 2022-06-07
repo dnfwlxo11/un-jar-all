@@ -21,31 +21,21 @@
                     </div>
                 </div>
             </div>
-            <div class="command-div">
-                <div class="row m-0 p-0 h-100">
-                    <div class="col-2 d-flex justify-content-center align-items-center h-100" style="border-right: 1px solid lightgrey">
-                        <strong>Command</strong>
-                    </div>
-                    <div class="col d-flex justify-content-center align-items-center h-100">
-                        <div class="row">
-                            <div v-for="(item, idx) of command" :key="idx">
-                                <div class="command-key mr-3">
-                                    {{item}}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <command />
         </div>
     </div>
 </template>
 <script>
+import Command from './vues/command.vue'
+
 export default {
     name: 'SquadBattle',
+    components: {
+        Command
+    },
     data() {
         return {
-            command: ['→', '←', '←', '↑', '↓']
+            
         }
     }
 }
@@ -79,20 +69,5 @@ export default {
     min-width: 400px;
     width: 400px;
     height: 500px;
-}
-
-.command-div {
-    background-color: #F1F3F5;
-    border-radius: 0.25rem;
-    height: 80px;
-}
-
-.command-key {
-    color: #FFF;
-    background-color: #2c3e50;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    font-size: 30px;
 }
 </style>
