@@ -1,8 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import Profile from '../views/profile/Profile.vue'
 import SignIn from '../views/profile/vues/SignIn.vue'
 import SignUp from '../views/profile/vues/SignUp.vue'
+import FindId from '../views/profile/vues/FindId.vue'
+import FindPassword from '../views/profile/vues/FindPassword.vue'
 import Player from '../views/player/Player.vue'
 import Community from '../views/community/Community.vue'
 import SquadBattle from '../views/squadBattle/SquadBattle.vue'
@@ -24,15 +27,33 @@ const routes = [
     component: Home
   },
   {
-    path: '/signin',
-    name: 'SignIn',
-    component: SignIn
+    path: '/member',
+    name: 'Member',
+    component: Profile,
+    children: [
+      {
+        path: 'signin',
+        name: 'SignIn',
+        component: SignIn
+      },
+      {
+        path: 'signup',
+        name: 'SignUp',
+        component: SignUp
+      },
+      {
+        path: 'find/id',
+        name: 'FindId',
+        component: FindId
+      },
+      {
+        path: 'find/password',
+        name: 'FindPassword',
+        component: FindPassword
+      },
+    ]
   },
-  {
-    path: '/signup',
-    name: 'SignUp',
-    component: SignUp
-  },
+  
   {
     path: '/player/:playerName',
     name: 'Player',

@@ -18,7 +18,7 @@
                 </select>
             </div>
             <div class="col mt-auto mb-auto">
-                <button class="custom-btn" @click="$router.push('/signin')"><strong>로그인</strong></button>
+                <button class="custom-btn" @click="$router.push('/member/signin')"><strong>로그인</strong></button>
             </div>
         </div>
         <div class="container">

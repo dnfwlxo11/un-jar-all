@@ -20,10 +20,8 @@
                         <div class="mb-1">
                             <strong>PASSWORD <span class="essential"></span></strong>
                         </div>
-                        <div class="mb-1">
-                            <input type="password" placeholder="영문 + 숫자 + 특수문자 8자 이상">
-                        </div>
                         <div>
+                            <input class="mb-1" type="password" placeholder="영문 + 숫자 + 특수문자 8자 이상">
                             <input type="password" placeholder="비밀번호 재입력">
                         </div>
                     </div>
