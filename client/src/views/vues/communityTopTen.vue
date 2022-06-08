@@ -17,7 +17,23 @@
             <hr>
             <div class="row">
                 <div class="col-md-6">
-                    <div class="row m-0 p-0 community-content" v-for="(item, idx) of [1,2,3,4,5,6,7,8,9,10]" :key="idx">
+                    <div class="row m-0 p-0 community-content" v-for="(item, idx) of [1,2,3,4,5]" :key="idx" @click="$router.push(`/community/content/${item}`)">
+                        <div class="col-1 m-auto">
+                            <strong>{{item}}</strong>
+                        </div>
+                        <div class="col m-auto">
+                            <div class="text-left">
+                                <strong>재밌는 게시글이다</strong>
+                            </div>
+                            <div class="d-flex">
+                                <div>22.06.08</div> &nbsp;&nbsp;&nbsp;
+                                <div>임대인</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row m-0 p-0 community-content" v-for="(item, idx) of [6,7,8,9,10]" :key="idx" @click="$router.push(`/community/content/${item}`)">
                         <div class="col-1 m-auto">
                             <strong>{{item}}</strong>
                         </div>
@@ -55,6 +71,10 @@ export default {
 
 .community-content {
     height: 70px;
-    border: 0.5px solid lightgrey;
+    border-bottom: 0.5px solid lightgrey;
+}
+
+.community-content:hover {
+    background-color: lightgrey;
 }
 </style>

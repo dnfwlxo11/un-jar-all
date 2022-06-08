@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import SignIn from '../views/profile/vues/SignIn.vue'
+import SignUp from '../views/profile/vues/SignUp.vue'
 import Player from '../views/player/Player.vue'
 import Community from '../views/community/Community.vue'
 import SquadBattle from '../views/squadBattle/SquadBattle.vue'
@@ -9,11 +11,27 @@ import Editor from '../views/community/vues/editor.vue'
 
 Vue.use(VueRouter)
 
+const authentication = (to, from, next) => {
+  const authToken = window.$cookies.get('token')
+
+  if (authToken) next()
+}
+
 const routes = [
   {
     path: '/',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/signin',
+    name: 'SignIn',
+    component: SignIn
+  },
+  {
+    path: '/signup',
+    name: 'SignUp',
+    component: SignUp
   },
   {
     path: '/player/:playerName',

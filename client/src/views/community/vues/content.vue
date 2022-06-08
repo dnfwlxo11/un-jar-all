@@ -77,7 +77,10 @@ export default {
             comments: 0,
             likes: 0,
         }
-    }
+    },
+    created() {
+        window.scrollTo(0, 0);
+    },
 }
 </script>
 <style lang="scss" scoped>
@@ -88,7 +91,7 @@ export default {
 .custom-card {
     color: #000;
     background-color: #E0E0E0;
-    border-radius: 0.5rem;
+    // border-radius: 0.5rem;
     padding: 30px 50px 30px 50px;
 }
 
