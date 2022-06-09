@@ -3,14 +3,13 @@
         <nav-bar></nav-bar>
         <div class="container mb-5" style="padding: 90px 15px;">
             <div class="custom-card ml-auto mr-auto">
-                <div class="signin-title text-left">
-                    <strong>Sign Up</strong>
+                <div class="signin-title text-left mb-4">
+                    <strong>회원가입</strong>
                 </div>
-                <hr>
                 <div class="text-left">
                     <div class="mb-3">
                         <div class="mb-1">
-                            <strong>ID</strong>
+                            <strong>아이디</strong>
                         </div>
                         <div>
                             <input type="text" placeholder="영문, 숫자 4-20자">
@@ -18,7 +17,7 @@
                     </div>
                     <div class="mb-3">
                         <div class="mb-1">
-                            <strong>PASSWORD <span class="essential"></span></strong>
+                            <strong>비밀번호 <span class="essential"></span></strong>
                         </div>
                         <div>
                             <input class="mb-1" type="password" placeholder="영문 + 숫자 + 특수문자 8자 이상">
@@ -27,7 +26,7 @@
                     </div>
                     <div class="mb-3">
                         <div class="mb-1">
-                            <strong>EMAIL <span class="essential"></span></strong>
+                            <strong>이메일 <span class="essential"></span></strong>
                         </div>
                         <div class="mb-1">
                             <input type="password" placeholder="이메일 입력">
@@ -35,7 +34,7 @@
                         </div>
                     </div>
                     <div>
-                        <button class="w-100 btn btn-outline-dark">Sign Up</button>
+                        <button class="w-100 btn btn-outline-dark">회원가입</button>
                     </div>
                 </div>
             </div>

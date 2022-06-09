@@ -1,0 +1,27 @@
+FROM node:12
+
+# 패키지 설치 중 상호작용 방지
+ARG DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get install git -y
+
+RUN mkdir /app
+WORKDIR /app
+
+# RUN git init
+# RUN git config core.sparseCheckout true
+# RUN echo "server/" >> .git/info/sparse-checkout
+
+# RUN git remote add -f origin https://github.com/dnfwlxo11/un-jar-all.git
+# RUN git pull origin master
+
+# COPY ./app /app
+
+# EXPOSE 3000
+
+# RUN chmod +x ./wait-for-it.sh
+# RUN chmod +x ./entrypoint.sh
+
+# RUN npm install pm2 -g
+
+# ENTRYPOINT ["./entrypoint.sh"]

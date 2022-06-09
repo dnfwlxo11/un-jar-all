@@ -1,0 +1,28 @@
+version: '3'
+services:
+  web_server:
+    build:
+      context: ./nodejs
+    container_name: unjarall-nodejs
+    image: nodejs
+    restart: always
+    environment:
+      - TZ=Asia/Seoul
+    ports:
+      - "16011:3000"
+  data_db:
+    build: 
+      context: ./mariadb
+      dockerfile: Dockerfile
+    container_name: unjarall-mariadb
+    image: mariadb
+    restart: always
+    environment: 
+      - MYSQL_ROOT_PASSWORD=daein
+      - TZ=Asia/Seoul
+    ports:
+      - "16012:3306"
+    volumes:
+      - ./mariadb/app/db:/var/lib/mysql
+      - ./mariadb/app/backup:/backup
+      - ./mariadb/init.sql:/docker-entrypoint-initdb.d/init.sql
