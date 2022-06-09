@@ -71,10 +71,10 @@ export default {
 
 .community-content {
     height: 70px;
-    border-bottom: 0.5px solid lightgrey;
+    border-bottom: 0.5px solid #F1F3F5;
 }
 
 .community-content:hover {
-    background-color: lightgrey;
+    background-color: #F1F3F5;
 }
 </style>

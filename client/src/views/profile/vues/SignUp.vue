@@ -10,7 +10,7 @@
                 <div class="text-left">
                     <div class="mb-3">
                         <div class="mb-1">
-                            <strong>ID <span class="essential"></span></strong>
+                            <strong>ID</strong>
                         </div>
                         <div>
                             <input type="text" placeholder="영문, 숫자 4-20자">
@@ -50,7 +50,7 @@ export default {
 <style lang="scss" scoped>
 .custom-card {
     width: 40%;
-    background-color: lightgrey;
+    background-color: #FFF;
     padding: 30px;
 }
 
@@ -66,12 +66,14 @@ export default {
 }
 
 input {
+    border: 1px solid #F1F3F5;
+    border-radius: 0.25rem;
     padding-left: 10px;
     height: 40px;
     width: 100%;
 
     &:focus {
-        outline: lightgrey;
+        outline: #F1F3F5;
     }
 }
 </style>

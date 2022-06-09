@@ -2,7 +2,7 @@
     <div class="content-list">
         <div class="custom-card">
             <section v-for="(item, idx) of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]" :key="idx">
-                <div class="row m-0 p-0 content" @click="$router.push(`/community/content/${idx + 1}`)">
+                <div class="row m-0 p-0 content" @click="$router.push(`/community/content/${idx + 1}`, () => {})">
                     <div class="col-1 m-auto">
                         {{item}}
                     </div>
@@ -29,7 +29,7 @@ export default {
 <style lang="scss" scoped>
 .custom-card {
     color: #000;
-    background-color: #E0E0E0;
+    background-color: #FFF;
     // border-radius: 0.5rem;
     // padding: 10px 10px 30px 30px;
 }
@@ -40,12 +40,12 @@ img {
 }
 
 .content {
-    border-bottom: 1px solid lightgrey;
+    border-bottom: 1px solid #F1F3F5;
     min-height: 70px;
 }
 
 .content:hover {
-    background-color: lightgrey;
+    background-color: #F1F3F5;
 }
 
 .pagination {

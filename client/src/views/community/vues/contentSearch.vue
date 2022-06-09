@@ -39,7 +39,7 @@ export default {
 .custom-card {
     color: #000;
     height: 120px;
-    background-color: #E0E0E0;
+    background-color: #FFF;
     // border-radius: 0.5rem;
     padding: 10px 10px 30px 30px;
 }

@@ -2,6 +2,7 @@
     <div class="community">
         <nav-bar></nav-bar>
         <div class="container mb-5" style="padding: 90px 15px;">
+            <router-view class="mb-5"></router-view>
             <content-search class="mb-3"></content-search>
             <content-list class="mb-3"></content-list>
         </div>

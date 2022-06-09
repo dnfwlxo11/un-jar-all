@@ -1,6 +1,5 @@
 <template>
     <div class="sign-in">
-        <router-view></router-view>
         <nav-bar></nav-bar>
         <div class="container mb-5" style="padding: 90px 15px;">
             <div class="custom-card ml-auto mr-auto">
@@ -16,16 +15,18 @@
                     <div class="mb-2">
                         <button class="w-100 btn btn-outline-dark">Sign In</button>
                     </div>
-                    <div class="row m-0 p-0 mb-3">
-                        <div class="col text-left">
+                    <div class="d-flex mb-4">
+                        <div class="mr-1 d-flex justify-content-center align-items-center">
+                            <input type="checkbox" style="height: 15px; width: 15px;">
+                        </div>
+                        <div class="text-left">
                             <small>자동 로그인</small>
                         </div>
-                        <div class="col-1"></div>
-                        <div class="col text-right text-secondary">
-                            <small @click="$router.push('/member/find/id')">아이디 찾기</small>
+                        <div class="ml-auto text-secondary mr-3">
+                            <a href="javascript:;" @click="$router.push('/member/find/id')">아이디 찾기</a>
                         </div>
-                        <div class="col text-right text-secondary">
-                            <small @click="$router.push('/member/find/password')">비밀번호 찾기</small>
+                        <div class="text-secondary">
+                            <a href="javascript:;" @click="$router.push('/member/find/password')">비밀번호 찾기</a>
                         </div>
                     </div>
                     <div>
@@ -45,12 +46,13 @@ export default {
 a:link,
 a:visited,
 a:hover {
+    font-size: 12px;
     color: grey;
     text-decoration: none;
 }
 .custom-card {
     width: 40%;
-    background-color: lightgrey;
+    background-color: #FFF;
     padding: 30px;
 }
 
@@ -66,12 +68,14 @@ a:hover {
 }
 
 input {
+    border: 1px solid #F1F3F5;
+    border-radius: 0.25rem;
     padding-left: 10px;
     height: 40px;
     width: 100%;
 
     &:focus {
-        outline: lightgrey;
+        outline: #F1F3F5;
     }
 }
 </style>

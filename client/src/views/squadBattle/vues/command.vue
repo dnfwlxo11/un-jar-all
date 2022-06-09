@@ -36,7 +36,7 @@ export default {
 
 .command-header {
     width: 10%;
-    border-right: 1px solid lightgrey;
+    border-right: 1px solid #F1F3F5;
 }
 
 .command-body {

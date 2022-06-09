@@ -44,7 +44,7 @@
                     <textarea class="w-100 h-100" placeholder="남을 비방하거나 혐오, 갈등을 유발하는 글은 제재조치 될 수 있습니다." />
                 </div>
                 <div class="text-right">
-                    <button class="btn btn-outline-dark">등록</button>
+                    <button class="btn btn-outline-dark" @click="$router.push('/community')">등록</button>
                 </div>
             </div>
         </div>
@@ -68,7 +68,7 @@ export default {
 <style lang="scss" scoped>
 .custom-card {
     color: #000;
-    background-color: #E0E0E0;
+    background-color: #FFF;
     // border-radius: 0.5rem;
     padding: 30px 50px 30px 50px;
     min-width: 720px;
@@ -93,16 +93,17 @@ export default {
         padding-top: 10px;
         padding-left: 10px;
         outline: none;
+        resize: none;
     }
 }
 
 .editor-option {
-    width: 25px;
-    height: 25px;
-    // border-radius: 0.25rem;
-}
-
-.editor-option:hover {
-    background-color: lightgrey;
+    font-size: 20px;
+    width: 30px;
+    height: 30px;
+    
+    &:hover {
+        background-color: lightgrey;
+    }
 }
 </style>
