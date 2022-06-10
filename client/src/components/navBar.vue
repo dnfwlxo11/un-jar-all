@@ -18,7 +18,7 @@
                 </select>
             </div>
             <div class="col mt-auto mb-auto">
-                <button class="custom-btn" @click="$router.push('/member/signin', () => {})"><strong>로그인</strong></button>
+                <button class="custom-btn" @click="$router.push(`/member/signin?redirect=${$route.path}`, () => {})"><strong>로그인</strong></button>
             </div>
         </div>
         <div class="container">
@@ -52,13 +52,10 @@ export default {
         pageMove(target) {
             this.subTarget = 'home'
             this.currRoute = target
-
-            // if (this.currRoute === 'soccer') window.location.href = 'http://localhost:8080/'
-            // else if (this.currRoute === 'volly') window.location.href = 'http://localhost:8080/'
         },
     },
     created() {
-        this.subTarget = this.$route.path
+        console.log(this.$route)
     },
 }
 </script>
@@ -76,18 +73,18 @@ a {
 
 .select-menu {
     border-radius: 0.75rem 0.75rem 0 0;
-    background-color: #27282d;
+    background-color: #476072;
 }
 
 .select-sub-target {
-    border-bottom: 3px solid #FFF;
+    border-bottom: 3px solid #334257;
 }
 
 .nav-bar {
     min-width: 1024px;
     color: #FFF;
     height: 40px;
-    background-color: #35435D;
+    background-color: #334257;
 }
 
 .sub-nav-bar {
@@ -106,7 +103,7 @@ a {
     padding: 5px;
     color: #FFF;
     border-radius: 0.25rem;
-    background-color: black;
+    background-color: #476072;
 }
 
 .lang-selector:focus {

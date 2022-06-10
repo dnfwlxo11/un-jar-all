@@ -93,13 +93,10 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-hr {
-    border: 1px solid #FFF;
-    margin-bottom: 30px;
-}
 
 .badge {
-    background: #35435D;
+    color: #EEEEEE;
+    background-color: #35435D;
     padding: 5px;
     font-size: 18px;
 }
@@ -109,14 +106,8 @@ hr {
 }
 
 .custom-card {
-    color: #FFF;
     height: 100%;
-    background-color: #1E2025;
-    // border-radius: 0.5rem;
-    padding-left: 30px;
-    padding-right: 30px;
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding: 15px 30px 15px 30px;
 }
 
 .position-icon {
@@ -131,14 +122,17 @@ hr {
 }
 
 .fw {
+    color: #EEEEEE;
     background-color: #FF4D4F;
 }
 
 .mf {
+    color: #EEEEEE;
     background-color: #4D8D44;
 }
 
 .df {
+    color: #EEEEEE;
     background-color: #0392E6;
 }
 

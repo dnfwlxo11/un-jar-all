@@ -74,11 +74,11 @@ export default {
     padding: 20px;
     text-align: left;
     vertical-align: middle;
-    color: #000;
+    color: #354259;
 }
 
 .player-by-position {
-    background-color: #E0E0E0;
+    background-color: #EEEEEE;
     // border-radius: 0.5rem;
     height: 500px;
     

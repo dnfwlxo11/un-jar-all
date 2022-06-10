@@ -1,12 +1,12 @@
 <template>
     <div class="stat-card">
-        <div class="card custom-card">
-            <div class="stat-title">
+        <div class="card card">
+            <div class="card-title">
                 <strong>
                     {{title}}
                 </strong>
             </div>
-            <div class="stat-content">{{content}}</div>
+            <div class="card-body">{{content}}</div>
         </div>
     </div>
 </template>
@@ -26,20 +26,18 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.custom-card {
-    color: #FFF;
+.card {
     max-width: 400px;
     max-height: 300px;
-    background-color: #1E2025;
-    // border-radius: 0.5rem;
+    background-color: #EEEEEE;
 }
 
-.stat-title {
+.card-title {
+    padding: 10px 0px 10px 0px;
     font-size: 20px;
 }
 
-.stat-title,
-.stat-content {
+.card-body {
     padding-top: 20px;
     padding-bottom: 20px;
 }

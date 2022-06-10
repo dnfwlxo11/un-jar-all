@@ -74,11 +74,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .custom-card {
-    color: #000;
     height: 600px;
-    background-color: #E0E0E0;
-    // border-radius: 0.5rem;
-    padding: 30px;
 
     & img {
         width: 100%;

@@ -18,7 +18,6 @@ export default {
 <style lang="scss" scoped>
 img {
     z-index: 1;
-    opacity: 0.6;
     object-fit: cover;
     object-position: center top;
     height: 300px;

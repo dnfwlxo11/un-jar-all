@@ -62,13 +62,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.custom-card {
-    color: #000;
-    background-color: #FFF;
-    // border-radius: 0.5rem;
-    padding: 30px;
-}
-
 .community-content {
     height: 70px;
     border-bottom: 0.5px solid #F1F3F5;

@@ -49,8 +49,6 @@ export default {
 <style lang="scss" scoped>
 .custom-card {
     width: 40%;
-    background-color: #FFF;
-    padding: 30px;
 }
 
 .signin-title {
@@ -65,7 +63,7 @@ export default {
 }
 
 input {
-    border: 1px solid #F1F3F5;
+    border: 1px solid #334257;
     border-radius: 0.25rem;
     padding-left: 10px;
     height: 40px;

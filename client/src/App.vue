@@ -6,7 +6,7 @@
 
 <style lang="scss">
 html, body {
-  background-color: #27282d;
+  background-color: #476072;
 }
 
 #app {
@@ -28,6 +28,12 @@ html, body {
       color: #42b983;
     }
   }
+}
+
+.custom-card {
+    color: #334257;
+    background-color: #EEEEEE;
+    padding: 30px;
 }
 
 .custom-btn {

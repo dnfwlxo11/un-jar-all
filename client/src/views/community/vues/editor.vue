@@ -67,11 +67,7 @@ export default {
 
 <style lang="scss" scoped>
 .custom-card {
-    color: #000;
-    background-color: #FFF;
-    // border-radius: 0.5rem;
     padding: 30px 50px 30px 50px;
-    min-width: 720px;
 }
 
 .title {

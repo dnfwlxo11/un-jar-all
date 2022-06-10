@@ -7,7 +7,7 @@
                 </div>
                 <div class="col-8"></div>
                 <div class="col ml-auto text-right">
-                    <button class="btn btn-outline-primary" @click="$router.push('/community/editor')">글쓰기</button>
+                    <button class="btn btn-outline-dark" @click="$router.push('/community/editor')">글쓰기</button>
                 </div>
             </div>
             <div class="row m-0 p-0">
@@ -37,21 +37,18 @@ export default {
 </script>
 <style lang="scss" scoped>
 .custom-card {
-    color: #000;
     height: 120px;
-    background-color: #FFF;
-    // border-radius: 0.5rem;
     padding: 10px 10px 30px 30px;
 }
 
 .search-input {
-    color: #FFF;
+    color: #EEEEEE;
     text-align: left;
     padding: 0px;
     padding-left: 10px;
     outline: none;
     border: none;
-    background-color: #35435D;
+    background-color: #476072;
     // border-radius: 0.5rem 0 0 0.5rem;
     width: 50%;
     height: 40px;
@@ -69,8 +66,8 @@ export default {
 
 .search-btn {
     border: none;
-    border-left: 2px solid #27282d;
-    background-color: #35435D;
+    border-left: 2px solid #EEEEEE;
+    background-color: #476072;
     // border-radius: 0 0.5rem 0.5rem 0;
     height: 40px;
 }

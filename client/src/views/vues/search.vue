@@ -34,16 +34,16 @@ export default {
 
 <style lang="scss" scoped>
 .search-input {
-    color: #FFF;
+    color: #476072;
     text-align: left;
     padding: 0px;
     padding-left: 10px;
     outline: none;
     border: none;
-    background-color: #35435D;
+    background-color: #EEEEEE;
     // border-radius: 0.5rem 0 0 0.5rem;
-    width: 50%;
-    height: 40px;
+    width: 60%;
+    height: 50px;
 }
 
 .search-input:focus {
@@ -53,14 +53,15 @@ export default {
 .search-icon {
     border: none;
     outline: none;
-    color: #FFF;
+    color: #476072;
 }
 
 .search-btn {
     border: none;
-    border-left: 2px solid #27282d;
-    background-color: #35435D;
+    background-color: #EEEEEE;
+    border-left: 1px solid #476072;
     // border-radius: 0 0.5rem 0.5rem 0;
-    height: 40px;
+    height: 50px;
+    width: 50px;
 }
 </style>

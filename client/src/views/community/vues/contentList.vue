@@ -27,12 +27,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.custom-card {
-    color: #000;
-    background-color: #FFF;
-    // border-radius: 0.5rem;
-    // padding: 10px 10px 30px 30px;
-}
 
 img {
     width: 100%;

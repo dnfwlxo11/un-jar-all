@@ -116,13 +116,8 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-hr {
-    border: 1px solid #FFF;
-    margin-bottom: 30px;
-}
-
 .mdi-foot-print {
-    color: #757575;
+    color: #334257;
     display: inline-block;
     padding: 5px;
     background-color: #FFF;
@@ -134,10 +129,12 @@ hr {
 }
 
 .custom-card {
-    color: #FFF;
     height: 400px;
-    background-color: #1E2025;
-    // border-radius: 0.5rem;
-    padding: 30px;
+}
+
+.custom-btn {
+  color: #35435D;
+  border: 1px solid #35435D;
+  background-color: #EEEEEE;
 }
 </style>

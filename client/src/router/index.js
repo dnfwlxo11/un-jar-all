@@ -15,8 +15,10 @@ Vue.use(VueRouter)
 
 const authentication = (to, from, next) => {
   const authToken = window.$cookies.get('token')
+  console.log(to, from, 'to, from')
 
   if (authToken) next()
+  else next({ path: '/member/signin', query: { redirect: to.fullPath }})
 }
 
 const routes = [
@@ -50,7 +52,8 @@ const routes = [
   {
     path: '/player/:playerName',
     name: 'Player',
-    component: Player
+    component: Player,
+    beforeEnter: authentication,
   },
   {
     path: '/community',
@@ -67,12 +70,14 @@ const routes = [
   {
     path: '/community/editor',
     name: 'Community',
-    component: Editor
+    component: Editor,
+    beforeEnter: authentication,
   },
   {
     path: '/squadBattle',
     name: 'SquadBattle',
-    component: SquadBattle
+    component: SquadBattle,
+    beforeEnter: authentication,
   },
 ]
 
