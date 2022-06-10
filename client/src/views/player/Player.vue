@@ -17,17 +17,17 @@
                 <div class="col mr-5">
                     <div class="row mb-5">
                         <div class="col">
-                            <stat-card :title="'Goals'" :content="playerStat.goal"></stat-card>
+                            <stat-card :title="'골'" :content="playerStat.goal"></stat-card>
                         </div>
                     </div>
                     <div class="row mb-5">
                         <div class="col">
-                            <stat-card :title="'Appearances'" :content="playerStat.match"></stat-card>
+                            <stat-card :title="'경기수'" :content="playerStat.match"></stat-card>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
-                            <stat-card :title="'Passes'" :content="523"></stat-card>
+                            <stat-card :title="'패스'" :content="523"></stat-card>
                         </div>
                     </div>
                 </div>
@@ -37,17 +37,17 @@
                 <div class="col">
                      <div class="row mb-5">
                         <div class="col">
-                            <stat-card :title="'Assists'" :content="playerStat.assist"></stat-card>
+                            <stat-card :title="'도움'" :content="playerStat.assist"></stat-card>
                         </div>
                     </div>
                     <div class="row mb-5">
                         <div class="col">
-                            <stat-card :title="'Takles'" :content="74"></stat-card>
+                            <stat-card :title="'태클'" :content="74"></stat-card>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
-                            <stat-card :title="'Shots'" :content="121"></stat-card>
+                            <stat-card :title="'슛'" :content="121"></stat-card>
                         </div>
                     </div>
                 </div>
@@ -80,8 +80,6 @@ export default {
         }
     },
     created() {
-        console.log(this.$route.path)
-
         const target = this.$route.params.playerName
 
         if (target === '손흥민') this.playerStat = son

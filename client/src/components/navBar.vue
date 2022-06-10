@@ -2,7 +2,7 @@
     <div class="nav-bar">
         <div class="row m-0 p-0">
             <div class="col-2 h-100 menus" @click="$router.push('/', () => {})">
-                <span style="font-size: 24px;">운 잘 알</span>
+                <strong style="font-size: 24px;">운 잘 알</strong>
             </div>
             <div class="col h-100 menus" :class="{'select-menu': currRoute === 'soccer'}">
                 <div class="d-flex align-items-center" style="height: 40px;" @click="pageMove('soccer')">
@@ -18,20 +18,21 @@
                 </select>
             </div>
             <div class="col mt-auto mb-auto">
-                <button class="custom-btn" @click="$router.push(`/member/signin?redirect=${$route.path}`, () => {})"><strong>로그인</strong></button>
+                <button v-if="!isLogin" class="custom-btn" @click="$router.push(`/member/signin?redirect=${$route.path}`, () => {})"><strong>로그인</strong></button>
+                <button v-else class="custom-btn" @click="signOut"><strong>로그아웃</strong></button>
             </div>
         </div>
         <div class="container">
             <div class="sub-nav-bar" v-if="currRoute === 'soccer'">
                 <div class="row h-100">
-                    <div class="col mt-auto mb-auto" @click="$router.push('/', () => {})">
+                    <div class="col mt-auto mb-auto" @click="pageMove();$router.push('/', () => {})">
                         <span :class="{'select-sub-target': subTarget === '/'}">홈</span>
                     </div>
-                    <div class="col mt-auto mb-auto" @click="$router.push('/community', () => {})">
+                    <div class="col mt-auto mb-auto" @click="pageMove();$router.push('/community?type=all', () => {})">
                         <span :class="{'select-sub-target': subTarget.includes('/community')}">커뮤니티</span>
                     </div>
-                    <div class="col mt-auto mb-auto" @click="$router.push('/squadBattle', () => {})">
-                        <span :class="{'select-sub-target': subTarget === '/squadBattle'}">스쿼드 배틀</span>
+                    <div class="col mt-auto mb-auto" @click="pageMove();$router.push('/squadBattle', () => {})">
+                        <span :class="{'select-sub-target': subTarget.includes('/squadBattle')}">스쿼드 배틀</span>
                     </div>
                     <div class="col-6"></div>
                 </div>
@@ -44,18 +45,29 @@ export default {
     name: 'NavBar',
     data() {
         return {
+            isLogin: false,
             currRoute: 'soccer',
-            subTarget: 'home',
+            subTarget: '',
         }
     },
-    methods: {
-        pageMove(target) {
-            this.subTarget = 'home'
-            this.currRoute = target
-        },
+    mounted() {
+        this.loginCheck()
+        this.pageMove()
     },
-    created() {
-        console.log(this.$route)
+    methods: {
+        loginCheck() {
+            const token = this.$cookies.get('token');
+
+            if (token) this.isLogin = true;
+        },
+        pageMove() {
+            this.subTarget = this.$route.path;
+        },
+        signOut() {
+            this.$cookies.remove('token')
+            this.isLogin = false;
+            this.$router.push('/', () => {})
+        },
     },
 }
 </script>
@@ -77,7 +89,7 @@ a {
 }
 
 .select-sub-target {
-    border-bottom: 3px solid #334257;
+    border-bottom: 3px solid #EEEEEE;
 }
 
 .nav-bar {

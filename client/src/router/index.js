@@ -15,7 +15,6 @@ Vue.use(VueRouter)
 
 const authentication = (to, from, next) => {
   const authToken = window.$cookies.get('token')
-  console.log(to, from, 'to, from')
 
   if (authToken) next()
   else next({ path: '/member/signin', query: { redirect: to.fullPath }})

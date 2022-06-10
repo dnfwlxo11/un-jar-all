@@ -36,14 +36,11 @@
                             }
                         }
                     },
-                    title: {
-                        text: 'Main Stats',
-                    },
-                    colors: ['#FF4560'],
+                    colors: ['#000'],
                     markers: {
                         size: 4,
                         colors: ['#FFF'],
-                        strokeColor: '#FF4560',
+                        strokeColor: '#000',
                         strokeWidth: 2,
                     },
                     tooltip: {
@@ -69,8 +66,6 @@
                         }
                     }
                 },
-
-
             }
         },
     }
