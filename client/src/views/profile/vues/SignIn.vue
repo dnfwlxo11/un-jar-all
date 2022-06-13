@@ -81,6 +81,7 @@ a:hover {
     color: grey;
     text-decoration: none;
 }
+
 .custom-card {
     width: 40%;
 }

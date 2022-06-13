@@ -44,26 +44,26 @@
                 </div>                    
                 <div class="row mt-3 mb-3">
                     <div class="col"></div>
-                    <div class="col-1 down-btn mr-3">
-                        <i class="mdi mdi-thumb-down-outline"></i>
-                    </div>
-                    <div class="col-1 up-btn">
+                    <div class="col-1 up-btn mr-3">
                         <i class="mdi mdi-thumb-up-outline"></i>
+                    </div>
+                    <div class="col-1 down-btn">
+                        <i class="mdi mdi-thumb-down-outline"></i>
                     </div>
                     <div class="col"></div>
                 </div>
             </div>
         </div>
-        <comment></comment>
+        <comments></comments>
     </div>
 </template>
 <script>
-import Comment from './comment.vue'
+import Comments from './comments.vue'
 
 export default {
     name: 'ContentList',
     components: {
-        Comment
+        Comments
     },
     data() {
         return {

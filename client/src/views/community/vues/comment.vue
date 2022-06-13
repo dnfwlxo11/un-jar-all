@@ -1,95 +1,91 @@
 <template>
     <div class="comment">
-        <div class="custom-card">
-            <div class="row mb-4">
-                <div class="d-flex">
-                    <div class="mr-2" style="font-size: 25px;">
-                        <strong>댓글</strong>
-                    </div>
-                    <div class="d-flex align-items-end" style="font-size: 20px;">
-                        <small style="display: inline-block;">(총 {{ comments.length }}개)</small>
-                    </div>
-                </div>
+        <div class="d-flex mb-3">
+            <div class="comment-author">
+                <strong>{{author}}</strong>
             </div>
-            <div v-if="comments.length">
-                <div class="comments" v-for="(comment, idx) of comments" :key="idx">
-                    <div class="row mb-3">
-                        <div class="col">
-                            <div class="like-btn">
-                                <i class="mdi mdi-chevron-up"></i>
-                            </div>
-                            <div>{{likes}}</div>
-                            <div class="dislike-btn">
-                                <i class="mdi mdi-chevron-down"></i>
-                            </div>
-                        </div>
-                        <div class="col-11">
-                            <div class="d-flex mb-3">
-                                <div class="comment-author">
-                                    <strong>{{comment.name}}</strong>
-                                </div>
-                                <div class="split-vertical"></div>
-                                <div class="comment-time">
-                                    {{comment.createTime}}
-                                </div>
-                            </div>
-                            <div class="text-left comment-content mb-3">
-                                {{comment.content}}
-                            </div>
-                            <div class="text-left">
-                                <small>
-                                    <i class="mdi mdi-comment-multiple-outline"></i> 답글
-                                </small>
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
-                </div>
+            <div class="split-vertical"></div>
+            <div class="comment-time">
+                {{createTime}}
             </div>
-            <div v-else class="none-comments">
-                <div class="d-flex justify-content-center align-items-center">
-                    <i class="mdi mdi-comment-text-multiple-outline" style="font-size: 60px;"></i>
+        </div>
+        <div class="text-left comment-content mb-3">
+            {{content}}
+        </div>
+        <div class="text-left">
+            <div>
+                <div class="d-flex" v-if="!isReply">
+                    <div class="mr-3">
+                        <i class="mdi mdi-chevron-down"></i> 답글보기
+                    </div>
+                    <div @click="isReply=true;">
+                        <i class="mdi mdi-comment-multiple-outline"></i> 답글
+                    </div>
                 </div>
-                <div class="d-flex justify-content-center align-items-center">
-                    <strong>등록된 댓글이 없습니다.</strong>
+                <div v-else class="ml-4" style="font-size: 14px;">
+                    <div class="mb-1">
+                        <strong>임대인</strong>
+                    </div>
+                    <div class="replyInput mb-2 w-100">
+                        <input class="w-100" type="text" v-model="replyContent">
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <button class="btn btn-outline-dark mr-2" style="font-size: 12px;" @click="cancelReply()">취소</button>
+                        <button class="btn btn-dark" style="font-size: 12px;" @click="submitReply()">등록</button>
+                    </div>
                 </div>
             </div>
         </div>
-        
-    </div>    
+    </div>
 </template>
 
 <script>
 export default {
     name: 'comment',
+    props: {
+        author: {
+            type: String,
+            default: '',
+        },
+        content: {
+            type: String,
+            default: '',
+        },
+        createTime: {
+            type: String,
+            default: '',
+        },
+    },
     data() {
         return {
-            comments: [
-                {
-                    'name': '임대인',
-                    'content': '손흥민 잘한다',
-                    'createTime': '2022.06.03 15:42:11',
-                },
-                {
-                    'name': '임대인',
-                    'content': '손흥민 잘한다',
-                    'createTime': '2022.06.03 15:42:11',
-                },
-                {
-                    'name': '임대인',
-                    'content': '손흥민 잘한다',
-                    'createTime': '2022.06.03 15:42:11',
-                },
-            ],
-            likes: 0,
+            isReply: false,
+            replyContent: null,
         }
-    }
+    },
+    methods: {
+        reply() {
+            
+        },
+        cancelReply() {
+            this.isReply = false;
+            this.replyContent = null;
+        },
+        submitReply() {
+            this.isReply = false;
+            this.replyContent = null;
+        },
+    },
 }
 </script>
 
 <style lang="scss" scoped>
-.custom-card {
-    padding: 30px 50px 30px 50px;
+.replyInput {
+    input {
+        border: none;
+        border-bottom: 1px solid #334257;
+        background-color: inherit;
+        outline: none;
+    }
 }
 
 .like-btn,

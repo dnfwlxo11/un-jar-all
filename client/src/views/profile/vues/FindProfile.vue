@@ -16,8 +16,8 @@
                 </div>
                 <div v-if="type==='id'" class="mb-5">
                     <div class="find-id d-flex align-items-center">
-                        <input type="email" placeholder="이메일" style="width: 75%;">
-                        <button class="btn btn-outline-dark pt-1 pb-1">인증요청</button>
+                        <input class="mr-3" type="email" placeholder="이메일" style="width: 75%;">
+                        <button class="btn btn-outline-dark pt-1 pb-1">인증<br>요청</button>
                     </div>
                 </div>
                 <div v-else-if="type==='password'" class="mb-5">
@@ -25,8 +25,8 @@
                         <input class="mb-1" type="text" placeholder="아이디">
                     </div>
                     <div class="find-id d-flex align-items-center">
-                        <input type="email" placeholder="이메일" style="width: 75%;">
-                        <button class="btn btn-outline-dark pt-1 pb-1">인증요청</button>
+                        <input class="mr-3" type="email" placeholder="이메일" style="width: 75%;">
+                        <button class="btn btn-outline-dark pt-1 pb-1">인증<br>요청</button>
                     </div>
                 </div>
                 <div class="mb-2">
@@ -55,6 +55,10 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.custom-card {
+    width: 40%;
+}
+
 .find-title {
     font-size: 30px;
 }
@@ -67,13 +71,12 @@ export default {
 }
 
 .find-id {
-    border: 1px solid #F1F3F5;
     padding: 5px 10px 5px 0px;
     height: 80px;
 
     input {
-        height: 60px;
-        border: none;
+        height: 50px;
+        border: 1px solid #334257;
         width: 75%;
     }
 
@@ -83,10 +86,10 @@ export default {
 }
 
 .active {
-    border-left: 1px solid #F1F3F5;
-    border-right: 1px solid #F1F3F5;
-    border-top: 1px solid #F1F3F5;
-    background-color: #FFF;
+    border-left: 1px solid #334257;
+    border-right: 1px solid #334257;
+    border-top: 1px solid #334257;
+    background-color: #EEEEEE;
     color: #34282C;
 }
 
@@ -94,7 +97,7 @@ input {
     border: 1px solid #334257;
     border-radius: 0.25rem;
     padding-left: 10px;
-    height: 80px;
+    height: 50px;
     width: 100%;
 
     &:focus {

@@ -13,37 +13,43 @@
                 </div>
             </div>
             <hr>
-            <div class="row" style="height: 350px;">
+            <div class="row mt-5" style="height: 350px;">
                 <div class="col-5 h-100">
-                    <div class="h-100 mb-3">
-                        <!-- <img class="versus-player" src="@/assets/default-player.png"> -->
-                        <img class="versus-player" src="@/assets/son.png">
+                    <div class="h-100 mb-3" @click="isPlayerModal=true;">
+                        <img class="versus-player" src="@/assets/default-player.png">
                     </div>
                     <div style="font-size: 20px;">
-                        <strong>{{ player_1 }}</strong>
+                        <strong>Player 1</strong>
                     </div>
                 </div>
                 <div class="col mt-auto mb-auto" style="font-size: 30px;">
                     <strong>VS</strong>
                 </div>
                 <div class="col-5 h-100">
-                    <div class="h-100 mb-3">
-                        <!-- <img class="versus-player" src="@/assets/default-player.png"> -->
-                        <img class="versus-player" src="@/assets/kane.png">
+                    <div class="h-100 mb-3" @click="isPlayerModal=true;">
+                        <img class="versus-player" src="@/assets/default-player.png">
                     </div>
                     <div style="font-size: 20px;">
-                        <strong>{{ player_2 }}</strong>
+                        <strong>Player 2</strong>
                     </div>
                 </div>
             </div>
         </div>
+        <player-search-modal v-if="isPlayerModal" @on-close="isPlayerModal=false;" @on-complete="isPlayerModal=false;"></player-search-modal>
     </div>
 </template>
 <script>
+import PlayerSearchModal from './playerSearchModal.vue'
+
 export default {
     name: 'PlayerVersusSearch',
+    components: {
+        PlayerSearchModal
+    },
     data() {
         return {
+            isPlayerModal: false,
+
             player_1: '손흥민',
             player_2: '해리케인',
         }
