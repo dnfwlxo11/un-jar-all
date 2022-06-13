@@ -26,7 +26,7 @@
                             <div class="col-6">
                                 <div class="row m-0 p-0 mb-3">
                                     <div class="col m-0 p-0 mr-2">
-                                        <select class="w-100 h-100">
+                                        <select class="form-control w-100 h-100">
                                             <option selected="selected">리그</option>
                                             <option value="epl">English Premier League</option>
                                             <option value="laliga">La Liga Santander</option>
@@ -36,14 +36,14 @@
                                         </select>
                                     </div>
                                     <div class="col m-0 p-0">
-                                        <select class="w-100 h-100">
+                                        <select class="form-control w-100 h-100">
                                             <option selected="selected">팀</option>
                                             <option value="tottenham">Tottenham Hotspur</option>
                                             <option value="mu">Manchester United</option>
                                         </select>
                                     </div>
                                 </div>
-                                <div style="border: 1px solid black;height: 200px;max-height: 200px;overflow-y: auto;">
+                                <div style="border: 1px solid lightgrey;height: 200px;max-height: 200px;overflow-y: auto;border-radius: 0.25rem">
 
                                 </div>
                             </div>
@@ -114,7 +114,7 @@ img {
     padding-top: 50px;
 }
 .modal-container {
-    width: 540px;
+    width: 720px;
 }
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
