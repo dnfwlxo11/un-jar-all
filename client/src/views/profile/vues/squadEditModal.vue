@@ -251,7 +251,7 @@ export default {
                 player.name = playerInfo.name;
                 player.pos = playerInfo.position 
                             ? (() => {
-                                this.positionCoor[playerInfo.position].player = player;
+                                this.$set(this.positionCoor[playerInfo.position], 'player', player.id);
                                 player.x = playerInfo.x
                                 player.y = playerInfo.y
 
@@ -259,7 +259,7 @@ export default {
                             })() : (() => {
                                 for (let key of Object.keys(this.positionCoor)) {
                                     if (!this.positionCoor[key].player) {
-                                        this.positionCoor[key].player = player;
+                                        this.$set(this.positionCoor[key], 'player', player.id);
                                         player.x = this.positionCoor[key].x + (this.positionCoor[key].w / 2)
                                         player.y = this.positionCoor[key].y + (this.positionCoor[key].h / 2)
 
@@ -268,20 +268,12 @@ export default {
                                 }
                             })()
 
-                this.positionCoor[player.pos].player = player.id;
-
                 player.addListener('pointerdown', this.onDragStart);
                 player.addListener('pointerup', this.onDragEnd);
                 player.addListener('pointerupoutside', this.onDragEnd);
 
                 this.app.stage.addChild(player);
-                this.$set(this.playersObj, `player_${idx + 1}`, {
-                    "x": player.x,
-                    "y": player.x,
-                    "pos": player.pos,
-                    "name": player.name,
-                    "id": player.id,
-                });
+                this.$set(this.playersObj, player.id, player);
             })
         },
 
@@ -311,39 +303,48 @@ export default {
             console.log('onDragStart')
             e.target.alpha = 0.5;
             this.selectedTarget = e.target;
-            this.previousPos = JSON.parse(JSON.stringify(e.data.global))
+            this.previousPos = this.$Utils.cloneObj(e.data.global)
             console.log('previous Position start: ', this.previousPos.x, this.previousPos.y)
             this.app.stage.addListener('pointermove', this.onDragMove);
         },
 
         onDragEnd(e) {
-            console.log('onDragEnd')
-            console.log('previous Position end: ', this.previousPos.x, this.previousPos.y)
-            const position = this.checkPosition(this.selectedTarget.position._x, this.selectedTarget.position._y);
+            const position = this.checkPosition(e.data.global.x, e.data.global.y);
 
-            if (this.positionCoor[position].player) {
-                const playerAInfo = this.previousPos;
-                const playerBInfo = JSON.parse(JSON.stringify(this.playersObj[this.positionCoor[position].player]));
+            if (this.positionCoor[position].player && this.selectedTarget.pos !== position) {
+                // 타겟들 포지션
+                const playerAPos = this.selectedTarget.pos
+                const playerBPos = position;
 
-                console.log('playerAInfo: ', playerAInfo.x, playerAInfo.y);
-                console.log('playerBInfo: ', playerBInfo.x, playerBInfo.y);
+                // 타겟들 ID
+                const playerAId = this.$Utils.cloneObj(this.positionCoor[playerAPos].player)
+                const playerBId = this.$Utils.cloneObj(this.positionCoor[playerAPos].player)
 
-                this.$set(this.playersObj[this.selectedTarget.id], 'x', playerBInfo.x);
-                this.$set(this.playersObj[this.selectedTarget.id], 'y', playerBInfo.y);
 
-                this.$set(this.playersObj[this.positionCoor[position].player], 'x', playerAInfo.x);
-                this.$set(this.playersObj[this.positionCoor[position].player], 'y', playerAInfo.y);
+                // 옮기는 객체의 처음 좌표, 포지션 변경할 객체의 좌표
+                const playerAInfo = this.$Utils.cloneObj(this.previousPos);
+                const playerBInfo = this.$Utils.cloneObj(this.playersObj[this.positionCoor[position].player]);
+
+                this.playersObj[this.selectedTarget.id].setTransform(playerBInfo.x, playerBInfo.y);
+                this.playersObj[this.positionCoor[position].player].setTransform(playerAInfo.x, playerAInfo.y);
+
+                this.playersObj[this.selectedTarget.id].pos = playerBPos;
+                this.playersObj[this.selectedTarget.id].height = 60;
+                this.playersObj[this.selectedTarget.id].width = 60;
+                this.playersObj[this.positionCoor[position].player].pos = playerAPos;
+                this.playersObj[this.positionCoor[position].player].height = 60;
+                this.playersObj[this.positionCoor[position].player].width = 60;
+
+                this.positionCoor[playerBPos].player = playerAId
+                this.positionCoor[playerAPos].player = playerBId
                 
                 this.previousPos = null;
-
-                console.log(this.playersObj)
+            } else {
+                this.$set(this.playersObj[this.selectedTarget.id], 'pos', position);
             }
 
-            // this.selectedTarget.parent.toLocal(e.data.global, null, this.selectedTarget.position);
-            this.$set(this.playersObj[this.selectedTarget.id], 'pos', position);
             this.selectedTarget.alpha = 1;
             this.checkLinePosition(null);
-            this.selectedTarget = null;
             this.app.stage.removeListener('pointermove', this.onDragMove);
         },
 
