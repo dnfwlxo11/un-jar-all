@@ -1,70 +1,76 @@
 <template>
-    <div class="squad-battle">
-        <nav-bar></nav-bar>
-        <div class="container mb-5" style="padding: 90px 15px;">
-            <div class="gauge mb-3">
-                <div class="progress w-75 ml-auto mr-auto" style="height: 60px;">
+    <transition name="modal">
+        <div class="modal-mask">
+            <div class="modal-wrapper">
+                <div class="modal-container">
+                    <div class="modal-title pt-3">
+                        <div class="row m-0 p-0">
+                            <div class="col-1">
 
+                            </div>
+                            <div class="col">
+                                스쿼드 수정하기
+                            </div>
+                            <div class="col-1">
+                                <i class="mdi mdi-close" @click="$emit('on-close')"></i>
+                            </div>
+                        </div>
+                        <hr class="mb-0">
+                    </div>
+                    <div class="modal-body">
+                        <div class="d-flex justify-content-center">
+                            <div class="team mr-3">
+                                <canvas ref="team"></canvas>
+                            </div>
+                            <div class="text-left custom-card p-3" style="width: 300px;">
+                                <div class="mb-3">
+                                    <strong>라인업</strong>
+                                </div>
+                                <div class="mb-2" v-for="(value, key) in playersObj" :key="key">
+                                    <div class="row m-0 p-0">
+                                        <span :class="{'fw': positionCoor[value.pos].role === 1, 
+                                                    'mf': positionCoor[value.pos].role === 2, 
+                                                    'df': positionCoor[value.pos].role === 3, 
+                                                    'gk': positionCoor[value.pos].role === 4, }" 
+                                        class="fw mr-2 col-2 text-center">{{value.pos}}</span>
+                                        <span class="col">{{value.name}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="row">
+                            <div class="col-1"></div>
+                            <div class="col">
+                                <button class="btn btn-outline-dark w-100" @click="$emit('on-close')">취소</button>
+                            </div>
+                            <div class="col-2"></div>
+                            <div class="col">
+                                <button class="btn btn-dark w-100" @click="$emit('on-complete')">확인</button>
+                            </div>
+                            <div class="col-1"></div>
+                        </div>
+                    </div>          
                 </div>
             </div>
-            <div class="mb-5 d-flex">
-                <div class="d-flex">
-                    <div class="left-team ml-auto mr-3">
-                        <div>
-                            <strong>Own Team</strong>
-                        </div>
-                        <canvas ref="leftTeam"></canvas>
-                    </div>
-                    <div class="text-left custom-card p-3" style="margin-top: 30px;width: 300px;">
-                        <div class="mb-3">
-                            <strong>라인업</strong>
-                        </div>
-                        <div class="mb-2" v-for="(value, key) in playersObj" :key="key">
-                            <div class="row m-0 p-0">
-                                <span :class="{'fw': positionCoor[value.pos].role === 1, 
-                                            'mf': positionCoor[value.pos].role === 2, 
-                                            'df': positionCoor[value.pos].role === 3, 
-                                            'gk': positionCoor[value.pos].role === 4, }" 
-                                class="fw mr-2 col-2 text-center">{{value.pos}}</span>
-                                <span class="col">{{value.name}}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="versus"></div>
-                <div class="d-flex">
-                    <div>
-                        <div class="right-team mr-auto">
-                            <div>
-                                <strong>Opponent Team</strong>
-                            </div>
-                            <div ref="rightTeam" class="right-team-squad">
-                                <img src="@/assets/stadium.jpg">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <button class="btn btn-dark mb-3" @click="getPlayersPosition">포지션 보기</button>
-            <command />
         </div>
-    </div>
-</template> 
+    </transition>
+</template>
+
 <script>
 import * as PIXI from 'pixi.js'
-import Command from './vues/command.vue'
 
 export default {
-    name: 'SquadBattle',
-    components: {
-        Command
-    },
+    name: 'SquadModal',
     data() {
         return {
             app: null,
             selectedTarget: null,
+            previousPos: null,
             linesObj: [],
             playersObj: {},
+            currPosition: null,
             positionCoor: {
                 "LW": { x: 0, y: 0, h: 200, w: 125, type: "full", player: null, role: 1 },
                 "LS": { x: 125, y: 0, h: 100, w: 125, type: "half", player: null, role: 1 },
@@ -106,7 +112,7 @@ export default {
                 autoDensity: true,
                 backgroundColor: 0xEEEEEE,
                 resolution: devicePixelRatio,
-                view: this.$refs.leftTeam,
+                view: this.$refs.team,
             });
 
             const backgroundImg = new PIXI.Sprite.from(require('@/assets/stadium.jpg'));
@@ -233,8 +239,6 @@ export default {
             ];
 
             players.forEach((playerInfo, idx) => {
-                console.log(playerInfo, 'playerInfo')
-
                 const player = new PIXI.Sprite.from(require(`@/assets/tottenham/${playerInfo.src}`));
 
                 player.width = 60;
@@ -263,6 +267,8 @@ export default {
                                     }
                                 }
                             })()
+
+                this.positionCoor[player.pos].player = player.id;
 
                 player.addListener('pointerdown', this.onDragStart);
                 player.addListener('pointerup', this.onDragEnd);
@@ -302,26 +308,49 @@ export default {
         },
 
         onDragStart(e) {
+            console.log('onDragStart')
             e.target.alpha = 0.5;
             this.selectedTarget = e.target;
+            this.previousPos = JSON.parse(JSON.stringify(e.data.global))
+            console.log('previous Position start: ', this.previousPos.x, this.previousPos.y)
             this.app.stage.addListener('pointermove', this.onDragMove);
         },
 
         onDragEnd(e) {
+            console.log('onDragEnd')
+            console.log('previous Position end: ', this.previousPos.x, this.previousPos.y)
             const position = this.checkPosition(this.selectedTarget.position._x, this.selectedTarget.position._y);
-            this.$set(this.playersObj[this.selectedTarget.id], 'pos', position)
+
+            if (this.positionCoor[position].player) {
+                const playerAInfo = this.previousPos;
+                const playerBInfo = JSON.parse(JSON.stringify(this.playersObj[this.positionCoor[position].player]));
+
+                console.log('playerAInfo: ', playerAInfo.x, playerAInfo.y);
+                console.log('playerBInfo: ', playerBInfo.x, playerBInfo.y);
+
+                this.$set(this.playersObj[this.selectedTarget.id], 'x', playerBInfo.x);
+                this.$set(this.playersObj[this.selectedTarget.id], 'y', playerBInfo.y);
+
+                this.$set(this.playersObj[this.positionCoor[position].player], 'x', playerAInfo.x);
+                this.$set(this.playersObj[this.positionCoor[position].player], 'y', playerAInfo.y);
+                
+                this.previousPos = null;
+
+                console.log(this.playersObj)
+            }
+
+            // this.selectedTarget.parent.toLocal(e.data.global, null, this.selectedTarget.position);
+            this.$set(this.playersObj[this.selectedTarget.id], 'pos', position);
             this.selectedTarget.alpha = 1;
             this.checkLinePosition(null);
             this.selectedTarget = null;
             this.app.stage.removeListener('pointermove', this.onDragMove);
-            
         },
 
         onDragMove(e) {
             const position = this.checkPosition(this.selectedTarget.position._x, this.selectedTarget.position._y);
             this.checkLinePosition(position)
             this.selectedTarget.parent.toLocal(e.data.global, null, this.selectedTarget.position);
-            
         },
 
         onClick(e) {
@@ -346,8 +375,7 @@ export default {
     min-width: 100px;
 }
 
-.left-team,
-.right-team {
+.team {
     min-width: 500px;
     width: 500px;
     height: 600px;
@@ -359,14 +387,6 @@ export default {
         height: 600px;
         object-fit: fit;
     }
-}
-
-.left-team-squad,
-.right-team-squad {
-    background-color: #F1F3F5;
-    min-width: 500px;
-    width: 500px;
-    height: 600px;
 }
 
 .fw {
@@ -389,5 +409,19 @@ export default {
 .gk {
     color: #EEEEEE;
     background-color: #FF9500;
+}
+.modal-mask {
+
+}
+.modal-container {
+    width: 960px;
+}
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input:focus {
+    outline: 0;
 }
 </style>

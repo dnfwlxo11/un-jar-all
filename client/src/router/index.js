@@ -7,6 +7,7 @@ import SignUp from '../views/profile/vues/SignUp.vue'
 import FindProfile from '../views/profile/vues/FindProfile.vue'
 import Player from '../views/player/Player.vue'
 import Community from '../views/community/Community.vue'
+import SquadModal from '../views/profile/vues/squadEditModal.vue'
 import SquadBattle from '../views/squadBattle/SquadBattle.vue'
 import Content from '../views/community/vues/content.vue'
 import Editor from '../views/community/vues/editor.vue'
@@ -77,6 +78,11 @@ const routes = [
     name: 'SquadBattle',
     component: SquadBattle,
     beforeEnter: authentication,
+  },
+  {
+    path: '/squad',
+    name: 'SquadModal',
+    component: SquadModal,
   },
 ]
 
