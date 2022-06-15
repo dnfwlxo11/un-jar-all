@@ -5,13 +5,11 @@
                 <div class="modal-container">
                     <div class="modal-title pt-3">
                         <div class="row m-0 p-0">
-                            <div class="col-1">
-
+                            <div class="col-1"></div>
+                            <div class="col text-center">
+                                <strong>스쿼드 수정하기</strong>
                             </div>
-                            <div class="col">
-                                스쿼드 수정하기
-                            </div>
-                            <div class="col-1">
+                            <div class="col-1 text-right">
                                 <i class="mdi mdi-close" @click="$emit('on-close')"></i>
                             </div>
                         </div>
@@ -20,23 +18,42 @@
                     <div class="modal-body">
                         <div class="d-flex justify-content-center">
                             <div class="team mr-3">
+                                <div style="height: 50px;">
+                                    <select class="form-control" v-model="currFormation" @change="reloadSquad();">
+                                        <option value="3-4-3">3-4-3</option>
+                                        <option value="3-4-1-2">3-4-1-2</option>
+                                        <option value="3-2-3-2">3-2-3-2</option>
+                                        <option value="3-2-2-1-2">3-2-2-1-2</option>
+                                        <option value="4-4-2">4-4-2</option>
+                                        <option value="4-2-2-2">4-2-2-2</option>
+                                        <option value="4-1-2-3">4-1-2-3</option>
+                                        <option value="5-3-2">5-3-2</option>
+                                        <option value="5-2-3">5-2-3</option>
+                                    </select>
+                                </div>
                                 <canvas ref="team"></canvas>
                             </div>
-                            <div class="text-left custom-card p-3" style="width: 300px;">
-                                <div class="mb-3">
-                                    <strong>라인업</strong>
+                            <div>
+                                <div style="height: 50px;">
+                                    <button class="w-100 btn btn-outline-dark" @click="getPlayersPosition">스쿼드 저장</button>
                                 </div>
-                                <div class="mb-2" v-for="(value, key) in playersObj" :key="key">
-                                    <div class="row m-0 p-0">
-                                        <span :class="{'fw': positionCoor[value.pos].role === 1, 
-                                                    'mf': positionCoor[value.pos].role === 2, 
-                                                    'df': positionCoor[value.pos].role === 3, 
-                                                    'gk': positionCoor[value.pos].role === 4, }" 
-                                        class="fw mr-2 col-2 text-center">{{value.pos}}</span>
-                                        <span class="col">{{value.name}}</span>
+                                <div class="text-left custom-card p-3" style="width: 300px;">
+                                    <div class="mb-3">
+                                        <strong>라인업</strong>
+                                    </div>
+                                    <div class="mb-2" v-for="(value, key) in playersObj" :key="key">
+                                        <div class="row m-0 p-0">
+                                            <span :class="{'fw': positionCoor[value.pos].role === 1, 
+                                                           'mf': positionCoor[value.pos].role === 2, 
+                                                           'df': positionCoor[value.pos].role === 3, 
+                                                           'gk': positionCoor[value.pos].role === 4, }" 
+                                            class="fw mr-2 col-2 text-center">{{value.pos}}</span>
+                                            <span class="col">{{value.name}}</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -59,6 +76,7 @@
 </template>
 
 <script>
+import { static_formation, static_position } from '@/assets/formation.js'
 import * as PIXI from 'pixi.js'
 
 export default {
@@ -66,37 +84,14 @@ export default {
     data() {
         return {
             app: null,
+            currFormation: '3-4-3',
+            formation: static_formation,
             selectedTarget: null,
             previousPos: null,
             linesObj: [],
             playersObj: {},
             currPosition: null,
-            positionCoor: {
-                "LW": { x: 0, y: 0, h: 200, w: 125, type: "full", player: null, role: 1 },
-                "LS": { x: 125, y: 0, h: 100, w: 125, type: "half", player: null, role: 1 },
-                "ST": { x: 187.5, y: 0, h: 100, w: 125, type: "half", player: null, role: 1 },
-                "RS": { x: 250, y: 0, h: 100, w: 125, type: "half", player: null, role: 1 },
-                "RW": { x: 375, y: 0, h: 200, w: 125, type: "full", player: null, role: 1 },
-                "LF": { x: 125, y: 100, h: 100, w: 125, type: "half", player: null, role: 1 },
-                "CF": { x: 187.5, y: 100, h: 100, w: 125, type: "half", player: null, role: 1 },
-                "RF": { x: 250, y: 100, h: 100, w: 125, type: "half", player: null, role: 1 },
-                "LM": { x: 0, y: 200, h: 200, w: 125, type: "full", player: null, role: 2 },
-                "LAM": { x: 125, y: 200, h: 100, w: 125, type: "half", player: null, role: 2 },
-                "CAM": { x: 187.5, y: 200, h: 100, w: 125, type: "half", player: null, role: 2 },
-                "RAM": { x: 250, y: 200, h: 100, w: 125, type: "half", player: null, role: 2 },
-                "RM": { x: 375, y: 200, h: 200, w: 125, type: "full", player: null, role: 2 },
-                "LDM": { x: 125, y: 300, h: 100, w: 125, type: "half", player: null, role: 2 },
-                "CDM": { x: 187.5, y: 300, h: 100, w: 125, type: "half", player: null, role: 2 },
-                "RDM": { x: 250, y: 300, h: 100, w: 125, type: "half", player: null, role: 2 },
-                "LWB": { x: 0, y: 400, h: 100, w: 125, type: "half", player: null, role: 3 },
-                "LCB": { x: 125, y: 400, h: 100, w: 125, type: "half", player: null, role: 3 },
-                "CB": { x: 187.5, y: 400, h: 100, w: 125, type: "half", player: null, role: 3 },
-                "RCB": { x: 250, y: 400, h: 100, w: 125, type: "half", player: null, role: 3 },
-                "RWB": { x: 375, y: 400, h: 100, w: 125, type: "half", player: null, role: 3 },
-                "LB": { x: 0, y: 500, h: 100, w: 125, type: "half", player: null, role: 3 },
-                "RB": { x: 375, y: 500, h: 100, w: 125, type: "half", player: null, role: 3 },
-                "GK": { x: 187.5, y: 500, h: 100, w: 125, type: "half", player: null, role: 4 },
-            }
+            positionCoor: static_position,
         }
     },
     mounted() {
@@ -134,9 +129,25 @@ export default {
             this.app.stage.hitArea = this.app.renderer.screen;
             this.app.stage.on('click', this.onClick);
         },
+        reloadSquad() {
+            const stageChildren = this.$Utils.cloneObj(this.app.stage.children)
+            stageChildren.forEach((item, idx) => {
+                console.log(item.id)
+                if (item.id) {
+                    this.app.stage.removeChild(item);
+                }
+            });
+
+            this.selectedTarget = null;
+            this.previousPos = null;
+
+            this.positionCoor = static_position;
+            this.loadSquad();
+        },
         loadLine() {
             Object.keys(this.positionCoor).forEach((key) => {
-                const line = new PIXI.Sprite.from(require(`@/assets/frame${this.positionCoor[key].type === 'half' ? '-half' : ''}.png`));
+                const frameType = this.positionCoor[key].type
+                const line = new PIXI.Sprite.from(require(`@/assets/frame${this.positionCoor[key].type !== 'full' ? `-${frameType}` : ''}.png`));
                 line.x = this.positionCoor[key].x;
                 line.y = this.positionCoor[key].y;
                 line.pos = key;
@@ -197,7 +208,7 @@ export default {
                     src: 'Cristian Romero.png',
                 },
                 {
-                    name: 'Sergio Reguilon.png',
+                    name: 'Sergio Reguilon',
                     number: 3,
                     position: 'LWB',
                     x: this.positionCoor['LWB'].x + (this.positionCoor['LWB'].w / 2),
@@ -239,41 +250,48 @@ export default {
             ];
 
             players.forEach((playerInfo, idx) => {
-                const player = new PIXI.Sprite.from(require(`@/assets/tottenham/${playerInfo.src}`));
+                try {
+                    const player = new PIXI.Sprite.from(require(`@/assets/tottenham/${playerInfo.src}`));
 
-                player.width = 60;
-                player.height = 60;
-                player.backgroundColor = 0x334257;
-                player.interactive = true;
-                player.buttonMode = true;
-                player.anchor.set(0.5);
-                player.id = `player_${idx + 1}`
-                player.name = playerInfo.name;
-                player.pos = playerInfo.position 
-                            ? (() => {
-                                this.$set(this.positionCoor[playerInfo.position], 'player', player.id);
-                                player.x = playerInfo.x
-                                player.y = playerInfo.y
+                    playerInfo.position = null;
 
-                                return playerInfo.position 
-                            })() : (() => {
-                                for (let key of Object.keys(this.positionCoor)) {
-                                    if (!this.positionCoor[key].player) {
-                                        this.$set(this.positionCoor[key], 'player', player.id);
-                                        player.x = this.positionCoor[key].x + (this.positionCoor[key].w / 2)
-                                        player.y = this.positionCoor[key].y + (this.positionCoor[key].h / 2)
+                    player.width = 60;
+                    player.height = 60;
+                    player.backgroundColor = 0x334257;
+                    player.interactive = true;
+                    player.buttonMode = true;
+                    player.anchor.set(0.5);
+                    player.id = `player_${idx + 1}`
+                    player.name = playerInfo.name;
+                    player.pos = playerInfo.position 
+                                ? (() => {
+                                    this.$set(this.positionCoor[playerInfo.position], 'player', player.id);
+                                    player.x = playerInfo.x
+                                    player.y = playerInfo.y
 
-                                        return key; 
+                                    return playerInfo.position 
+                                })() : (() => {
+                                    for (let position of this.formation[`formation_${this.currFormation}`]) {
+                                        if (!this.positionCoor[position].player) {
+                                            this.$set(this.positionCoor[position], 'player', player.id);
+                                            player.x = this.positionCoor[position].x + (this.positionCoor[position].w / 2)
+                                            player.y = this.positionCoor[position].y + (this.positionCoor[position].h / 2)
+
+                                            return position; 
+                                        }
                                     }
-                                }
-                            })()
+                                })()
 
-                player.addListener('pointerdown', this.onDragStart);
-                player.addListener('pointerup', this.onDragEnd);
-                player.addListener('pointerupoutside', this.onDragEnd);
+                    player.addListener('pointerdown', this.onDragStart);
+                    player.addListener('pointerup', this.onDragEnd);
+                    player.addListener('pointerupoutside', this.onDragEnd);
 
-                this.app.stage.addChild(player);
-                this.$set(this.playersObj, player.id, player);
+                    this.app.stage.addChild(player);
+                    this.$set(this.playersObj, player.id, player);
+                } catch (err) {
+                    console.error('Error:', err, playerInfo)
+                }
+                
             })
         },
 
@@ -294,35 +312,41 @@ export default {
         },
 
         getPlayersPosition() {
+            const stadiumHeight = 600;
+            const stadiumWidth = 500;
+
             Object.values(this.playersObj).forEach(item => {
-                console.log(item.x, item.y, item.pos, 'x, y, pos')
+                console.log(`${((item.x / stadiumWidth) * 100).toFixed(2)} %`, `${((item.y / stadiumHeight) * 100).toFixed(2)} %`, item.pos, 'x, y, pos')
             })
         },
 
         onDragStart(e) {
-            console.log('onDragStart')
             e.target.alpha = 0.5;
             this.selectedTarget = e.target;
-            this.previousPos = this.$Utils.cloneObj(e.data.global)
-            console.log('previous Position start: ', this.previousPos.x, this.previousPos.y)
+            this.previousPos = this.$Utils.cloneObj(e.target)
             this.app.stage.addListener('pointermove', this.onDragMove);
         },
 
         onDragEnd(e) {
             const position = this.checkPosition(e.data.global.x, e.data.global.y);
 
-            if (this.positionCoor[position].player && this.selectedTarget.pos !== position) {
-                // 타겟들 포지션
+            if (this.selectedTarget.pos === 'GK') {
+                this.selectedTarget.alpha = 1;
+                this.checkLinePosition(null);
+                this.previousPos = null;
+                this.selectedTarget = null;
+                this.app.stage.removeListener('pointermove', this.onDragMove);
+            } else if (this.positionCoor[position].player && this.selectedTarget.pos !== position) {
+                // 타겟 포지션 : src (A), dst (B)
                 const playerAPos = this.selectedTarget.pos
                 const playerBPos = position;
 
-                // 타겟들 ID
+                // 타겟 ID : src (A), dst (B)
                 const playerAId = this.$Utils.cloneObj(this.positionCoor[playerAPos].player)
-                const playerBId = this.$Utils.cloneObj(this.positionCoor[playerAPos].player)
+                const playerBId = this.$Utils.cloneObj(this.positionCoor[playerBPos].player)
 
-
-                // 옮기는 객체의 처음 좌표, 포지션 변경할 객체의 좌표
-                const playerAInfo = this.$Utils.cloneObj(this.previousPos);
+                // 타겟 객체 : src (A), dst (B)
+                const playerAInfo = this.$Utils.cloneObj({ "x": this.previousPos.x, "y": this.previousPos.y });
                 const playerBInfo = this.$Utils.cloneObj(this.playersObj[this.positionCoor[position].player]);
 
                 this.playersObj[this.selectedTarget.id].setTransform(playerBInfo.x, playerBInfo.y);
@@ -331,27 +355,40 @@ export default {
                 this.playersObj[this.selectedTarget.id].pos = playerBPos;
                 this.playersObj[this.selectedTarget.id].height = 60;
                 this.playersObj[this.selectedTarget.id].width = 60;
+
                 this.playersObj[this.positionCoor[position].player].pos = playerAPos;
                 this.playersObj[this.positionCoor[position].player].height = 60;
                 this.playersObj[this.positionCoor[position].player].width = 60;
 
-                this.positionCoor[playerBPos].player = playerAId
-                this.positionCoor[playerAPos].player = playerBId
-                
+                this.$set(this.positionCoor[playerBPos], 'player', playerAId);
+                this.$set(this.positionCoor[playerAPos], 'player', playerBId);
+
+                this.selectedTarget.alpha = 1;
+                this.checkLinePosition(null);
                 this.previousPos = null;
+                this.selectedTarget = null;
+                this.app.stage.removeListener('pointermove', this.onDragMove);
             } else {
                 this.$set(this.playersObj[this.selectedTarget.id], 'pos', position);
-            }
 
-            this.selectedTarget.alpha = 1;
-            this.checkLinePosition(null);
-            this.app.stage.removeListener('pointermove', this.onDragMove);
+                if (this.previousPos.pos !== position) {
+                    this.$set(this.positionCoor[position], 'player', this.selectedTarget.id);
+                    this.$set(this.positionCoor[this.previousPos.pos], 'player', null);
+                }
+
+                this.selectedTarget.alpha = 1;
+                this.checkLinePosition(null);
+                this.previousPos = null;
+                this.selectedTarget = null;
+                this.app.stage.removeListener('pointermove', this.onDragMove);
+            }
         },
 
         onDragMove(e) {
-            const position = this.checkPosition(this.selectedTarget.position._x, this.selectedTarget.position._y);
+            const position = this.checkPosition(this.selectedTarget.x, this.selectedTarget.y);
             this.checkLinePosition(position)
-            this.selectedTarget.parent.toLocal(e.data.global, null, this.selectedTarget.position);
+
+            if (this.selectedTarget.pos !== 'GK') this.selectedTarget.parent.toLocal(e.data.global, null, this.selectedTarget.position);
         },
 
         onClick(e) {
