@@ -287,16 +287,30 @@ export default {
             const stadiumWidth = 500;
 
             Object.values(this.playersObj).forEach(item => {
-                console.log(`${((item.x / stadiumWidth) * 100).toFixed(2)}%`, `${((item.y / stadiumHeight) * 100).toFixed(2)}%`, item.pos, item.name, 'x, y, pos, name')
+                console.log(`${((item.x / stadiumWidth) * 100).toFixed(2)}%`, `${((item.y / stadiumHeight) * 100).toFixed(2)}%`, item.pos, item.name, 'x, y, pos, name');
             })
         },
 
         bounceEffect() {
-            console.log('bounce:', this.playersObj['player_1'])
+            const randomNum = parseInt(Math.random() * 10 + 1);
+            const targetObj = this.playersObj[`player_${randomNum}`];
+            let count = 0;
+
+            this.team_own.ticker.add(() => {
+                count += 0.01;
+
+                targetObj.scale.x = Math.sin(count);
+                targetObj.scale.y = Math.sin(count);
+                
+                targetObj.rotation += 0.01
+                
+                console.log(targetObj.rotation)
+            })
         },
 
         twinkleEffect() {
-            console.log('twinkle:', this.playersObj['player_1'])
+            const targetObj = this.playersObj['player_1'];
+            console.log('bounce:', targetObj);
         },
     },
 }
