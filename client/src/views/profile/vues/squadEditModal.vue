@@ -19,7 +19,7 @@
                         <div class="d-flex justify-content-center">
                             <div class="team mr-3">
                                 <div style="height: 50px;">
-                                    <select class="form-control" v-model="currFormation" @change="reloadSquad();">
+                                    <select class="form-control" v-model="currFormation" @change="removeFormation();">
                                         <option value="3-4-3">3-4-3</option>
                                         <option value="3-4-1-2">3-4-1-2</option>
                                         <option value="3-2-3-2">3-2-3-2</option>
@@ -41,19 +41,28 @@
                                     <div class="mb-3">
                                         <strong>라인업</strong>
                                     </div>
-                                    <div class="mb-2" v-for="(value, key) in playersObj" :key="key">
-                                        <div class="row m-0 p-0">
-                                            <span :class="{'fw': positionCoor[value.pos].role === 1, 
-                                                           'mf': positionCoor[value.pos].role === 2, 
-                                                           'df': positionCoor[value.pos].role === 3, 
-                                                           'gk': positionCoor[value.pos].role === 4, }" 
-                                            class="fw mr-2 col-2 text-center">{{value.pos}}</span>
-                                            <span class="col">{{value.name}}</span>
+                                    <div v-if="playersObj">
+                                        <div class="mb-2" v-for="(value, key) in playersObj" :key="key">
+                                            <div class="row m-0 p-0">
+                                                <span :class="{'fw': positionCoor[value.pos].role === 1, 
+                                                            'mf': positionCoor[value.pos].role === 2, 
+                                                            'df': positionCoor[value.pos].role === 3, 
+                                                            'gk': positionCoor[value.pos].role === 4, }" 
+                                                class="fw mr-2 col-2 text-center">{{value.pos}}</span>
+                                                <span class="col">{{value.name}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div v-else>
+                                        <div>
+                                            <i class="mdi mdi-loading mdi-spin"></i>
+                                        </div>
+                                        <div>
+                                            포메이션 변경 중
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -91,10 +100,11 @@ export default {
             linesObj: [],
             playersObj: {},
             currPosition: null,
-            positionCoor: static_position,
+            positionCoor: null,
         }
     },
     mounted() {
+        this.positionCoor = this.$Utils.cloneObj(static_position)
         this.createApp();
         this.loadLine();
         this.loadSquad();
@@ -123,26 +133,33 @@ export default {
                     },
                 )
             );
+
             title.position.set(12, 12);
 
             this.app.stage.interactive = true;
             this.app.stage.hitArea = this.app.renderer.screen;
             this.app.stage.on('click', this.onClick);
         },
-        reloadSquad() {
-            const stageChildren = this.$Utils.cloneObj(this.app.stage.children)
-            stageChildren.forEach((item, idx) => {
-                console.log(item.id)
-                if (item.id) {
-                    this.app.stage.removeChild(item);
-                }
+        removeFormation() {
+            const removeTargetChild = []
+            this.app.stage.children.forEach((item, idx) => {
+                if (item.id) removeTargetChild.push(item);
             });
+
+            const removeTargetLength = removeTargetChild.length;
+            for (let i=0;i<removeTargetLength;i++) {
+                const currTarget = removeTargetChild.pop();
+
+                this.app.stage.removeChild(currTarget);
+            }
 
             this.selectedTarget = null;
             this.previousPos = null;
+            this.playersObj = {};
 
-            this.positionCoor = static_position;
-            this.loadSquad();
+            this.positionCoor = this.$Utils.cloneObj(static_position);
+
+            this.loadSquad()
         },
         loadLine() {
             Object.keys(this.positionCoor).forEach((key) => {
@@ -157,8 +174,7 @@ export default {
                 this.app.stage.addChild(line);
             })
         },
-        loadSquad() {
-            const players = [
+        loadSquad() {const players = [
                 {
                     name: 'Son Heung Min',
                     number: 7,
@@ -277,7 +293,7 @@ export default {
                                             player.x = this.positionCoor[position].x + (this.positionCoor[position].w / 2)
                                             player.y = this.positionCoor[position].y + (this.positionCoor[position].h / 2)
 
-                                            return position; 
+                                            return position;
                                         }
                                     }
                                 })()
@@ -316,7 +332,7 @@ export default {
             const stadiumWidth = 500;
 
             Object.values(this.playersObj).forEach(item => {
-                console.log(`${((item.x / stadiumWidth) * 100).toFixed(2)} %`, `${((item.y / stadiumHeight) * 100).toFixed(2)} %`, item.pos, 'x, y, pos')
+                console.log(`${((item.x / stadiumWidth) * 100).toFixed(2)}%`, `${((item.y / stadiumHeight) * 100).toFixed(2)}%`, item.pos, item.name, 'x, y, pos, name')
             })
         },
 
