@@ -1,15 +1,81 @@
 <template>
     <div class="squad-battle">
         <nav-bar></nav-bar>
-        <div class="container mb-5" style="padding: 90px 15px;">
-            <div class="gauge mb-3">
-                <div class="progress w-75 ml-auto mr-auto" style="height: 60px;">
-
+        <div class="text-left custom-card p-3 h-100 own-lineup" :class="{'own-lineup-deactive': showOwnLineup===false, 'own-lineup-active': showOwnLineup}">
+            <div class="mb-3">
+                <strong>라인업</strong>
+            </div>
+            <div class="mb-2" v-for="(value, key) in playersObj" :key="key">
+                <div class="row m-0 p-0">
+                    <span :class="{'fw': positionCoor[value.pos].role === 1, 
+                                'mf': positionCoor[value.pos].role === 2, 
+                                'df': positionCoor[value.pos].role === 3, 
+                                'gk': positionCoor[value.pos].role === 4, }" 
+                    class="pos-icon mr-2 col-2 text-center">{{value.pos}}</span>
+                    <span class="col">{{value.name}}</span>
                 </div>
             </div>
-            <div class="mb-5 d-flex">
-                <div class="d-flex">
-                    <div class="left-team ml-auto mr-3">
+        </div>
+        <div class="text-left custom-card p-3 h-100 opp-lineup" :class="{'opp-lineup-deactive': showOppLineup===false, 'opp-lineup-active': showOppLineup}">
+            <div class="mb-3">
+                <strong>라인업</strong>
+            </div>
+            <div class="mb-2" v-for="(value, key) in playersObj" :key="key">
+                <div class="row m-0 p-0">
+                    <span :class="{'fw': positionCoor[value.pos].role === 1, 
+                                'mf': positionCoor[value.pos].role === 2, 
+                                'df': positionCoor[value.pos].role === 3, 
+                                'gk': positionCoor[value.pos].role === 4, }" 
+                    class="pos-icon mr-2 col-2 text-center">{{value.pos}}</span>
+                    <span class="col">{{value.name}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="container" style="padding: 90px 15px 30px;">
+            <div class="mb-3" style="border: 1px solid black;">
+                <div class="d-flex justify-content-center align-items-center">
+                    <div class="mr-3 p-1" style="border: 1px solid black;">
+                        <div>
+                            <i class="mdi mdi-account" style="font-size: 40px;"></i>
+                        </div>
+                        <div>
+                            Player 1
+                        </div>
+                    </div>
+                    <div class="progress versus-gauge">
+                        <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <div class="ml-3 p-1" style="border: 1px solid black;">
+                        <div>
+                            <i class="mdi mdi-account" style="font-size: 40px;"></i>
+                        </div>
+                        <div>
+                            Player 2
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <command class="ml-auto mr-auto mb-5" />
+            <div>
+                <button class="btn btn-dark mr-3" @click="bounceEffect">들썩들썩 효과</button>
+                <button class="btn btn-dark" @click="twinkleEffect">반짝이는 효과</button>
+            </div>
+            <div class="row m-0 p-0">
+                <div class="col-md-5 m-0 p-0 ml-auto mr-auto" ref="teamOwnDiv">
+                    <strong>Own Team</strong>
+                    <canvas ref="leftTeam"></canvas>
+                    <button class="btn btn-dark pt-0 pb-0" @click="showOwnLineup===null ? showOwnLineup=true : showOwnLineup=!showOwnLineup">라인업 보기</button>
+                </div>
+                <div class="ml-3 mr-3"></div>
+                <div class="col-md-5 m-0 p-0 ml-auto mr-auto" ref="teamOppDiv">
+                    <strong>Opponent Team</strong>
+                    <canvas ref="rightTeam"></canvas>
+                    <button class="btn btn-dark pt-0 pb-0" @click="showOppLineup===null ? showOppLineup=true : showOppLineup=!showOppLineup">라인업 보기</button>
+                </div>
+            </div>
+            <!-- <div class="mb-5 d-flex teams">
+                <div class="d-flex ml-auto mr-auto mb-5">
+                    <div class="mr-3 left-team">
                         <div>
                             <strong>Own Team</strong>
                         </div>
@@ -31,26 +97,45 @@
                         </div>
                     </div>
                 </div>
-                <div class="versus"></div>
-                <div class="d-flex">
-                    <div>
-                        <div class="right-team mr-auto">
-                            <div>
-                                <strong>Opponent Team</strong>
-                            </div>
-                            <div ref="rightTeam" class="right-team-squad">
-                                <img src="@/assets/stadium.jpg">
+                <div class="gauge mb-3">
+                    <div class="progress w-75 ml-auto mr-auto" style="height: 60px;">
+                         <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+                <command class="ml-auto mr-auto mb-5" />
+                <div class="d-flex ml-auto mr-auto">
+                    <div class="mr-3 right-team">
+                        <div>
+                            <strong>Opponent Team</strong>
+                        </div>
+                        <div ref="rightTeam" class="right-team-squad">
+                            <img src="@/assets/stadium.jpg">
+                        </div>
+                    </div>
+                    <div class="text-left custom-card p-3" style="margin-top: 30px;width: 300px;">
+                        <div class="mb-3">
+                            <strong>라인업</strong>
+                        </div>
+                        <div class="mb-2" v-for="(value, key) in playersObj" :key="key">
+                            <div class="row m-0 p-0">
+                                <span :class="{'fw': positionCoor[value.pos].role === 1, 
+                                            'mf': positionCoor[value.pos].role === 2, 
+                                            'df': positionCoor[value.pos].role === 3, 
+                                            'gk': positionCoor[value.pos].role === 4, }" 
+                                class="fw mr-2 col-2 text-center">{{value.pos}}</span>
+                                <span class="col">{{value.name}}</span>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <button class="btn btn-dark mb-3" @click="getPlayersPosition">포지션 보기</button>
-            <command />
+            </div> -->
+            <!-- <button class="btn btn-dark mb-3" @click="getPlayersPosition">포지션 보기</button> -->
         </div>
     </div>
 </template> 
 <script>
+import { static_formation, static_position } from '@/assets/formation.js'
+import { formationPos } from '@/assets/squadDummy.js'
 import * as PIXI from 'pixi.js'
 import Command from './vues/command.vue'
 
@@ -61,48 +146,47 @@ export default {
     },
     data() {
         return {
+            team_own: null,
+            team_opp: null,
+
+            team_own_size: null,
+            team_opp_size: null,
+
             app: null,
+            currFormation: '3-4-3',
             selectedTarget: null,
             linesObj: [],
             playersObj: {},
-            positionCoor: {
-                "LW": { x: 0, y: 0, h: 200, w: 125, type: "full", player: null, role: 1 },
-                "LS": { x: 125, y: 0, h: 100, w: 125, type: "half", player: null, role: 1 },
-                "ST": { x: 187.5, y: 0, h: 100, w: 125, type: "half", player: null, role: 1 },
-                "RS": { x: 250, y: 0, h: 100, w: 125, type: "half", player: null, role: 1 },
-                "RW": { x: 375, y: 0, h: 200, w: 125, type: "full", player: null, role: 1 },
-                "LF": { x: 125, y: 100, h: 100, w: 125, type: "half", player: null, role: 1 },
-                "CF": { x: 187.5, y: 100, h: 100, w: 125, type: "half", player: null, role: 1 },
-                "RF": { x: 250, y: 100, h: 100, w: 125, type: "half", player: null, role: 1 },
-                "LM": { x: 0, y: 200, h: 200, w: 125, type: "full", player: null, role: 2 },
-                "LAM": { x: 125, y: 200, h: 100, w: 125, type: "half", player: null, role: 2 },
-                "CAM": { x: 187.5, y: 200, h: 100, w: 125, type: "half", player: null, role: 2 },
-                "RAM": { x: 250, y: 200, h: 100, w: 125, type: "half", player: null, role: 2 },
-                "RM": { x: 375, y: 200, h: 200, w: 125, type: "full", player: null, role: 2 },
-                "LDM": { x: 125, y: 300, h: 100, w: 125, type: "half", player: null, role: 2 },
-                "CDM": { x: 187.5, y: 300, h: 100, w: 125, type: "half", player: null, role: 2 },
-                "RDM": { x: 250, y: 300, h: 100, w: 125, type: "half", player: null, role: 2 },
-                "LWB": { x: 0, y: 400, h: 100, w: 125, type: "half", player: null, role: 3 },
-                "LCB": { x: 125, y: 400, h: 100, w: 125, type: "half", player: null, role: 3 },
-                "CB": { x: 187.5, y: 400, h: 100, w: 125, type: "half", player: null, role: 3 },
-                "RCB": { x: 250, y: 400, h: 100, w: 125, type: "half", player: null, role: 3 },
-                "RWB": { x: 375, y: 400, h: 100, w: 125, type: "half", player: null, role: 3 },
-                "LB": { x: 0, y: 500, h: 100, w: 125, type: "half", player: null, role: 3 },
-                "RB": { x: 375, y: 500, h: 100, w: 125, type: "half", player: null, role: 3 },
-                "GK": { x: 187.5, y: 500, h: 100, w: 125, type: "half", player: null, role: 4 },
-            }
+
+            formation: null,
+            positionCoor: null,
+
+            showOwnLineup: null,
+            showOppLineup: null,
         }
     },
     mounted() {
-        this.createApp();
-        this.loadLine();
+        this.team_own_size = {
+            'w': this.$refs.teamOwnDiv.offsetWidth,
+            'h': (this.$refs.teamOwnDiv.offsetWidth / 3) * 4,
+        }
+
+        this.team_opp_size = {
+            'w': this.$refs.teamOppDiv.offsetWidth,
+            'h': (this.$refs.teamOppDiv.offsetWidth / 3) * 4,
+        }
+
+        this.formation = this.$Utils.cloneObj(static_formation)
+        this.positionCoor = this.$Utils.cloneObj(static_position)
+        this.createOwnTeam();
+        this.createOppTeam();
         this.loadSquad();
     },
     methods: {
-        createApp() {
-            this.app = new PIXI.Application({
-                width: 500,
-                height: 600,
+        createOwnTeam() {
+            this.team_own = new PIXI.Application({
+                width: this.team_own_size.w,
+                height: this.team_own_size.h,
                 autoDensity: true,
                 backgroundColor: 0xEEEEEE,
                 resolution: devicePixelRatio,
@@ -110,13 +194,13 @@ export default {
             });
 
             const backgroundImg = new PIXI.Sprite.from(require('@/assets/stadium.jpg'));
-            backgroundImg.width = 500;
-            backgroundImg.height = 600;
-            this.app.stage.addChild(backgroundImg);
+            backgroundImg.width = this.team_own_size.w;
+            backgroundImg.height = this.team_own_size.h;
+            this.team_own.stage.addChild(backgroundImg);
 
-            const title = this.app.stage.addChild(
+            const title = this.team_own.stage.addChild(
                 new PIXI.Text(
-                    '4-4-2, 임대인',
+                    `${this.currFormation}, 임대인`,
                     {
                         fontSize: 15,
                     },
@@ -124,210 +208,95 @@ export default {
             );
             title.position.set(12, 12);
 
-            this.app.stage.interactive = true;
-            this.app.stage.hitArea = this.app.renderer.screen;
-            this.app.stage.on('click', this.onClick);
+            this.team_own.stage.interactive = true;
+            this.team_own.stage.hitArea = this.team_own.renderer.screen;
         },
-        loadLine() {
-            Object.keys(this.positionCoor).forEach((key) => {
-                const line = new PIXI.Sprite.from(require(`@/assets/frame${this.positionCoor[key].type === 'half' ? '-half' : ''}.png`));
-                line.x = this.positionCoor[key].x;
-                line.y = this.positionCoor[key].y;
-                line.pos = key;
-                line.visible = false;
+        createOppTeam() {
+            this.team_opp = new PIXI.Application({
+                width: this.team_opp_size.w,
+                height: this.team_opp_size.h,
+                autoDensity: true,
+                backgroundColor: 0xEEEEEE,
+                resolution: devicePixelRatio,
+                view: this.$refs.rightTeam,
+            });
 
-                this.linesObj.push(line);
-                this.app.stage.addChild(line);
-            })
+            const backgroundImg = new PIXI.Sprite.from(require('@/assets/stadium.jpg'));
+            backgroundImg.width = this.team_opp_size.w;
+            backgroundImg.height = this.team_opp_size.h;
+            this.team_opp.stage.addChild(backgroundImg);
+
+            const title = this.team_opp.stage.addChild(
+                new PIXI.Text(
+                    `${this.currFormation}, 임대인`,
+                    {
+                        fontSize: 15,
+                    },
+                )
+            );
+            title.position.set(12, 12);
+
+            this.team_opp.stage.interactive = true;
+            this.team_opp.stage.hitArea = this.team_opp.renderer.screen;
         },
         loadSquad() {
-            const players = [
-                {
-                    name: 'Son Heung Min',
-                    number: 7,
-                    position: 'LW',
-                    x: this.positionCoor['LW'].x + (this.positionCoor['LW'].w / 2),
-                    y: this.positionCoor['LW'].y + (this.positionCoor['LW'].h / 2),
-                    src: 'Son Heung-Min.png',
-                },
-                {
-                    name: 'Harry Kane',
-                    number: 9,
-                    position: 'ST',
-                    x: this.positionCoor['ST'].x + (this.positionCoor['ST'].w / 2),
-                    y: this.positionCoor['ST'].y + (this.positionCoor['ST'].h / 2),
-                    src: 'Harry Kane.png',
-                },
-                {
-                    name: 'Dejan Kulusevski',
-                    number: 21,
-                    position: 'RW',
-                    x: this.positionCoor['RW'].x + (this.positionCoor['RW'].w / 2),
-                    y: this.positionCoor['RW'].y + (this.positionCoor['RW'].h / 2),
-                    src: 'Dejan Kulusevski.png',
-                },
-                {
-                    name: 'Rodrigo Bentancur',
-                    number: 30,
-                    position: 'LAM',
-                    x: this.positionCoor['LAM'].x + (this.positionCoor['LAM'].w / 2),
-                    y: this.positionCoor['LAM'].y + (this.positionCoor['LAM'].h / 2),
-                    src: 'Rodrigo Bentancur.png',
-                },
-                {
-                    name: 'Oliver Skipp',
-                    number: 29,
-                    position: 'RAM',
-                    x: this.positionCoor['RAM'].x + (this.positionCoor['RAM'].w / 2),
-                    y: this.positionCoor['RAM'].y + (this.positionCoor['RAM'].h / 2),
-                    src: 'Oliver Skipp.png',
-                },
-                {
-                    name: 'Cristian Romero',
-                    number: 4,
-                    position: 'CDM',
-                    x: this.positionCoor['CDM'].x + (this.positionCoor['CDM'].w / 2),
-                    y: this.positionCoor['CDM'].y + (this.positionCoor['CDM'].h / 2),
-                    src: 'Cristian Romero.png',
-                },
-                {
-                    name: 'Sergio Reguilon.png',
-                    number: 3,
-                    position: 'LWB',
-                    x: this.positionCoor['LWB'].x + (this.positionCoor['LWB'].w / 2),
-                    y: this.positionCoor['LWB'].y + (this.positionCoor['LWB'].h / 2),
-                    src: 'Sergio Reguilon.png',
-                },
-                {
-                    name: 'Ben Davies',
-                    number: 33,
-                    position: 'LCB',
-                    x: this.positionCoor['LCB'].x + (this.positionCoor['LCB'].w / 2),
-                    y: this.positionCoor['LCB'].y + (this.positionCoor['LCB'].h / 2),
-                    src: 'Ben Davies.png',
-                },
-                {
-                    name: 'Eric Dier',
-                    number: 15,
-                    position: 'RCB',
-                    x: this.positionCoor['RCB'].x + (this.positionCoor['RCB'].w / 2),
-                    y: this.positionCoor['RCB'].y + (this.positionCoor['RCB'].h / 2),
-                    src: 'Eric Dier.png',
-                },
-                {
-                    name: 'Emerson Royal',
-                    number: 12,
-                    position: 'RWB',
-                    x: this.positionCoor['RWB'].x + (this.positionCoor['RWB'].w / 2),
-                    y: this.positionCoor['RWB'].y + (this.positionCoor['RWB'].h / 2),
-                    src: 'Emerson Royal.png',
-                },
-                {
-                    name: 'Hugo Lloris',
-                    number: 1,
-                    position: 'GK',
-                    x: this.positionCoor['GK'].x + (this.positionCoor['GK'].w / 2),
-                    y: this.positionCoor['GK'].y + (this.positionCoor['GK'].h / 2),
-                    src: 'Hugo Lloris.png',
-                },
-            ];
+            const players = this.$Utils.cloneObj(formationPos)
 
             players.forEach((playerInfo, idx) => {
-                console.log(playerInfo, 'playerInfo')
+                try {
+                    const player = new PIXI.Sprite.from(require(`@/assets/tottenham/${playerInfo.src}`));
 
-                const player = new PIXI.Sprite.from(require(`@/assets/tottenham/${playerInfo.src}`));
+                    player.width = this.team_own_size.w / 6;
+                    player.height = this.team_own_size.w / 6;
+                    player.backgroundColor = 0x334257;
+                    player.interactive = true;
+                    player.buttonMode = true;
+                    player.anchor.set(0.5);
+                    player.id = `player_${idx + 1}`
+                    player.name = playerInfo.name;
+                    player.pos = playerInfo.position 
+                                ? (() => {
+                                    this.$set(this.positionCoor[playerInfo.position], 'player', player.id);
+                                    player.x = playerInfo.w * this.team_own_size.w
+                                    player.y = playerInfo.h * this.team_own_size.h
 
-                player.width = 60;
-                player.height = 60;
-                player.backgroundColor = 0x334257;
-                player.interactive = true;
-                player.buttonMode = true;
-                player.anchor.set(0.5);
-                player.id = `player_${idx + 1}`
-                player.name = playerInfo.name;
-                player.pos = playerInfo.position 
-                            ? (() => {
-                                this.positionCoor[playerInfo.position].player = player;
-                                player.x = playerInfo.x
-                                player.y = playerInfo.y
+                                    return playerInfo.position 
+                                })() : (() => {
+                                    for (let position of this.formation[`formation_${this.currFormation}`]) {
+                                        if (!this.positionCoor[position].player) {
+                                            this.$set(this.positionCoor[position], 'player', player.id);
+                                            player.x = this.positionCoor[position].x + (this.positionCoor[position].w / 2)
+                                            player.y = this.positionCoor[position].y + (this.positionCoor[position].h / 2)
 
-                                return playerInfo.position 
-                            })() : (() => {
-                                for (let key of Object.keys(this.positionCoor)) {
-                                    if (!this.positionCoor[key].player) {
-                                        this.positionCoor[key].player = player;
-                                        player.x = this.positionCoor[key].x + (this.positionCoor[key].w / 2)
-                                        player.y = this.positionCoor[key].y + (this.positionCoor[key].h / 2)
-
-                                        return key; 
+                                            return position;
+                                        }
                                     }
-                                }
-                            })()
+                                })()
 
-                player.addListener('pointerdown', this.onDragStart);
-                player.addListener('pointerup', this.onDragEnd);
-                player.addListener('pointerupoutside', this.onDragEnd);
-
-                this.app.stage.addChild(player);
-                this.$set(this.playersObj, `player_${idx + 1}`, {
-                    "x": player.x,
-                    "y": player.x,
-                    "pos": player.pos,
-                    "name": player.name,
-                    "id": player.id,
-                });
-            })
-        },
-
-        checkLinePosition(position) {
-            this.linesObj.forEach((item, idx) => {
-                if (item.pos === position) item.visible = true
-                else item.visible = false
-            });
-        },
-
-        checkPosition(player_x, player_y) {
-            for (let key of Object.keys(this.positionCoor)) {
-                if ((player_x >= this.positionCoor[key].x && player_x <= this.positionCoor[key].x + this.positionCoor[key].w) 
-                        && (player_y >= this.positionCoor[key].y && player_y <= this.positionCoor[key].y + this.positionCoor[key].h)) {
-                    return key;
+                    this.team_own.stage.addChild(player);
+                    this.$set(this.playersObj, player.id, player);
+                } catch (err) {
+                    console.error('Error:', err, playerInfo)
                 }
-            }
+                
+            })
         },
 
         getPlayersPosition() {
+            const stadiumHeight = 600;
+            const stadiumWidth = 500;
+
             Object.values(this.playersObj).forEach(item => {
-                console.log(item.x, item.y, item.pos, 'x, y, pos')
+                console.log(`${((item.x / stadiumWidth) * 100).toFixed(2)}%`, `${((item.y / stadiumHeight) * 100).toFixed(2)}%`, item.pos, item.name, 'x, y, pos, name')
             })
         },
 
-        onDragStart(e) {
-            e.target.alpha = 0.5;
-            this.selectedTarget = e.target;
-            this.app.stage.addListener('pointermove', this.onDragMove);
+        bounceEffect() {
+            console.log('bounce:', this.playersObj['player_1'])
         },
 
-        onDragEnd(e) {
-            const position = this.checkPosition(this.selectedTarget.position._x, this.selectedTarget.position._y);
-            this.$set(this.playersObj[this.selectedTarget.id], 'pos', position)
-            this.selectedTarget.alpha = 1;
-            this.checkLinePosition(null);
-            this.selectedTarget = null;
-            this.app.stage.removeListener('pointermove', this.onDragMove);
-            
-        },
-
-        onDragMove(e) {
-            const position = this.checkPosition(this.selectedTarget.position._x, this.selectedTarget.position._y);
-            this.checkLinePosition(position)
-            this.selectedTarget.parent.toLocal(e.data.global, null, this.selectedTarget.position);
-            
-        },
-
-        onClick(e) {
-            if (this.selectedTarget) {
-                this.selectedTarget.position.copyFrom(e.data.global);
-            }
+        twinkleEffect() {
+            console.log('twinkle:', this.playersObj['player_1'])
         },
     },
 }
@@ -344,6 +313,15 @@ export default {
 .versus {
     width: 100px;
     min-width: 100px;
+}
+
+.versus-gauge,
+.command {
+    width: 75%;
+}
+
+.teams {
+    flex-flow: column wrap;
 }
 
 .left-team,
@@ -369,11 +347,14 @@ export default {
     height: 600px;
 }
 
+.pos-icon {
+    border-radius: 0.25rem;
+    padding: 3px;
+}
+
 .fw {
     color: #EEEEEE;
     background-color: #FF4D4F;
-    border-radius: 0.25rem;
-    padding: 3px;
 }
 
 .mf {
@@ -389,5 +370,46 @@ export default {
 .gk {
     color: #EEEEEE;
     background-color: #FF9500;
+}
+
+.versus-gauge {
+    height: 50px;
+}
+
+.own-lineup,
+.opp-lineup {
+    position: absolute;
+    margin-bottom: 30px;
+    width: 300px;
+    z-index: 1;
+}
+
+.own-lineup {
+    left: -300px;
+    
+    &-active {
+        transition: 1s;
+        left: 0px;
+    }
+
+    &-deactive {
+        transition: 1s;
+        left: -300px;
+    }
+}
+
+.opp-lineup {
+    left: 100%;
+
+    &-active {
+        transition: 1s;
+        left: calc(100% - 300px);
+    }
+
+    &-deactive {
+        display: none;
+        transition: 1s;
+        left: 100%;
+    }
 }
 </style>

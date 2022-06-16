@@ -29,7 +29,7 @@
                             <strong>이메일 <span class="essential"></span></strong>
                         </div>
                         <div class="mb-1">
-                            <input type="password" placeholder="이메일 입력">
+                            <input type="email" placeholder="이메일 입력">
                             <small>비밀번호 찾기 시 활용됩니다.</small>
                         </div>
                     </div>

@@ -9,7 +9,7 @@
                     <i class="mdi mdi-soccer"></i>&nbsp;축구
                 </div>
             </div>
-            <div class="col-5"></div>
+            <div class="col-3"></div>
             <div class="col mt-auto mb-auto">
                 <i class="mdi mdi-web mr-2"></i>
                 <select class="lang-selector" name="language" id="">
@@ -18,8 +18,14 @@
                 </select>
             </div>
             <div class="col mt-auto mb-auto">
-                <button v-if="!isLogin" class="custom-btn" @click="$router.push(`/member/signin?redirect=${$route.path}`, () => {})"><strong>로그인</strong></button>
-                <button v-else class="custom-btn" @click="signOut"><strong>로그아웃</strong></button>
+                <div v-if="!isLogin">
+                    <button class="custom-btn" @click="$router.push(`/member/signin?redirect=${$route.path}`, () => {})"><strong>로그인</strong></button>
+                </div>
+                <div v-else>
+                    <button class="custom-btn mr-2" @click="$router.push(`/member/edit`, () => {})"><strong>프로필수정</strong></button>
+                    <button class="custom-btn" @click="signOut"><strong>로그아웃</strong></button>
+                </div>
+                
             </div>
         </div>
         <div class="container">

@@ -94,16 +94,17 @@ export default {
         return {
             app: null,
             currFormation: '3-4-3',
-            formation: static_formation,
             selectedTarget: null,
             previousPos: null,
             linesObj: [],
             playersObj: {},
             currPosition: null,
+            formation: null,
             positionCoor: null,
         }
     },
     mounted() {
+        this.formation = this.$Utils.cloneObj(static_formation)
         this.positionCoor = this.$Utils.cloneObj(static_position)
         this.createApp();
         this.loadLine();
@@ -127,7 +128,7 @@ export default {
 
             const title = this.app.stage.addChild(
                 new PIXI.Text(
-                    '4-4-2, 임대인',
+                    '3-4-3, 임대인',
                     {
                         fontSize: 15,
                     },
@@ -174,7 +175,8 @@ export default {
                 this.app.stage.addChild(line);
             })
         },
-        loadSquad() {const players = [
+        loadSquad() {
+            const players = [
                 {
                     name: 'Son Heung Min',
                     number: 7,

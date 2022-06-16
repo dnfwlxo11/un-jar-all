@@ -19,7 +19,7 @@ export default {
     name: 'Command',
     data() {
         return {
-            command: ['→', '←', '←', '↑', '↓', '→', '←', '←', '↑', '↓', '→', '←', '←', '↑', '↓', '→', '←', '←', '↑', '↓']
+            command: ['→', '←', '←', '↑', '↓', '→', '←', '←', '↑', '↓']
         }
     },
 }
@@ -31,17 +31,17 @@ export default {
 }
 
 .command-line {
-    height: 80px;
+    height: 60px;
 }
 
 .command-header {
     width: 10%;
-    border-right: 1px solid #F1F3F5;
+    border-right: 1px solid lightgrey;
 }
 
 .command-body {
     width: 90%;
-    max-width: 90%;
+    max-width: calc(90%);
     overflow-x: auto;
 }
 
