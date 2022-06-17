@@ -57,8 +57,9 @@
             </div>
             <command class="ml-auto mr-auto mb-5" />
             <div>
-                <button class="btn btn-dark mr-3" @click="bounceEffect">들썩들썩 효과</button>
-                <button class="btn btn-dark" @click="twinkleEffect">반짝이는 효과</button>
+                <button class="btn btn-dark mr-3" @click="addEffect('bounce')">들썩들썩 효과</button>
+                <button class="btn btn-dark mr-3" @click="twinkleEffect">반짝이는 효과</button>
+                <button class="btn btn-dark" @click="gameTimeManage">타이머 테스트</button>
             </div>
             <div class="row m-0 p-0">
                 <div class="col-md-5 m-0 p-0 ml-auto mr-auto" ref="teamOwnDiv">
@@ -73,62 +74,6 @@
                     <button class="btn btn-dark pt-0 pb-0" @click="showOppLineup===null ? showOppLineup=true : showOppLineup=!showOppLineup">라인업 보기</button>
                 </div>
             </div>
-            <!-- <div class="mb-5 d-flex teams">
-                <div class="d-flex ml-auto mr-auto mb-5">
-                    <div class="mr-3 left-team">
-                        <div>
-                            <strong>Own Team</strong>
-                        </div>
-                        <canvas ref="leftTeam"></canvas>
-                    </div>
-                    <div class="text-left custom-card p-3" style="margin-top: 30px;width: 300px;">
-                        <div class="mb-3">
-                            <strong>라인업</strong>
-                        </div>
-                        <div class="mb-2" v-for="(value, key) in playersObj" :key="key">
-                            <div class="row m-0 p-0">
-                                <span :class="{'fw': positionCoor[value.pos].role === 1, 
-                                            'mf': positionCoor[value.pos].role === 2, 
-                                            'df': positionCoor[value.pos].role === 3, 
-                                            'gk': positionCoor[value.pos].role === 4, }" 
-                                class="fw mr-2 col-2 text-center">{{value.pos}}</span>
-                                <span class="col">{{value.name}}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="gauge mb-3">
-                    <div class="progress w-75 ml-auto mr-auto" style="height: 60px;">
-                         <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                </div>
-                <command class="ml-auto mr-auto mb-5" />
-                <div class="d-flex ml-auto mr-auto">
-                    <div class="mr-3 right-team">
-                        <div>
-                            <strong>Opponent Team</strong>
-                        </div>
-                        <div ref="rightTeam" class="right-team-squad">
-                            <img src="@/assets/stadium.jpg">
-                        </div>
-                    </div>
-                    <div class="text-left custom-card p-3" style="margin-top: 30px;width: 300px;">
-                        <div class="mb-3">
-                            <strong>라인업</strong>
-                        </div>
-                        <div class="mb-2" v-for="(value, key) in playersObj" :key="key">
-                            <div class="row m-0 p-0">
-                                <span :class="{'fw': positionCoor[value.pos].role === 1, 
-                                            'mf': positionCoor[value.pos].role === 2, 
-                                            'df': positionCoor[value.pos].role === 3, 
-                                            'gk': positionCoor[value.pos].role === 4, }" 
-                                class="fw mr-2 col-2 text-center">{{value.pos}}</span>
-                                <span class="col">{{value.name}}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
             <!-- <button class="btn btn-dark mb-3" @click="getPlayersPosition">포지션 보기</button> -->
         </div>
     </div>
@@ -291,26 +236,57 @@ export default {
             })
         },
 
-        bounceEffect() {
-            const randomNum = parseInt(Math.random() * 10 + 1);
-            const targetObj = this.playersObj[`player_${randomNum}`];
-            let count = 0;
-
-            this.team_own.ticker.add(() => {
-                count += 0.01;
-
-                targetObj.scale.x = Math.sin(count);
-                targetObj.scale.y = Math.sin(count);
-                
-                targetObj.rotation += 0.01
-                
-                console.log(targetObj.rotation)
-            })
-        },
-
         twinkleEffect() {
             const targetObj = this.playersObj['player_1'];
             console.log('bounce:', targetObj);
+        },
+
+        getFilter(type) {
+            if (type === 'glow') {
+                return new PIXI.filters.GlowFilter(50, 2, 3, 0xffffff, 1)
+            }
+        },
+
+        addEffect(type) {
+            if (type === 'bounce') {
+                const randomNum = parseInt(Math.random() * 10 + 1);
+                const targetObj = this.playersObj[`player_${randomNum}`];
+                const staticRotation = this.$Utils.cloneObj(targetObj.rotation);
+                const staticScale = this.$Utils.cloneObj({
+                    'x': targetObj.scale.x,
+                    'y': targetObj.scale.y,
+                });
+
+                let count = 0;
+                const bouncEffect = () => {
+                    count += 0.1;
+
+                    targetObj.scale.x = staticScale.x + Math.sin(count) * 0.02;
+                    targetObj.scale.y = staticScale.y + Math.sin(count) * 0.02;
+
+                    targetObj.rotation = staticRotation + Math.sin(count) * 0.02;
+
+                    if (count > 28) {
+                        this.team_own.ticker.remove(bouncEffect)
+                        targetObj.rotation = staticRotation
+                        targetObj.scale.x = staticScale.x
+                        targetObj.scale.y = staticScale.y
+                        targetObj.filters = []
+                    };
+                }
+
+                this.team_own.ticker.add(bouncEffect)
+            }
+        },
+
+        gameTimeManage() {
+            let seconds = 0;
+            const gameTimer = (delta) => {
+                seconds += (1/60) * delta
+                console.log('seconds:', seconds)
+            }
+
+            this.team_own.ticker.add(gameTimer)
         },
     },
 }
