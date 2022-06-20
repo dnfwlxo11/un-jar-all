@@ -57,8 +57,17 @@
             </div>
             <command class="ml-auto mr-auto mb-5" />
             <div>
+                <div v-if="!gameTime">
+                    00:00
+                </div>
+                <div v-else>
+                    {{getGameTime}}
+                </div>
+            </div>
+            <div>
                 <button class="btn btn-dark mr-3" @click="addEffect('bounce')">들썩들썩 효과</button>
                 <button class="btn btn-dark mr-3" @click="twinkleEffect">반짝이는 효과</button>
+                <button class="btn btn-dark mr-3" @click="getFilter('glow')">테두리 강조 효과</button>
                 <button class="btn btn-dark" @click="gameTimeManage">타이머 테스트</button>
             </div>
             <div class="row m-0 p-0">
@@ -81,6 +90,7 @@
 <script>
 import { static_formation, static_position } from '@/assets/formation.js'
 import { formationPos } from '@/assets/squadDummy.js'
+import { GlowFilter } from '@pixi/filter-glow';
 import * as PIXI from 'pixi.js'
 import Command from './vues/command.vue'
 
@@ -108,6 +118,8 @@ export default {
 
             showOwnLineup: null,
             showOppLineup: null,
+
+            gameTime: null,
         }
     },
     mounted() {
@@ -243,7 +255,7 @@ export default {
 
         getFilter(type) {
             if (type === 'glow') {
-                return new PIXI.filters.GlowFilter(50, 2, 3, 0xffffff, 1)
+                return [new GlowFilter({ distance: 10, outerStrength: 5, innerStrength: 1, color: 0xFFDC73, quality: 1 })]
             }
         },
 
@@ -263,7 +275,7 @@ export default {
 
                     targetObj.scale.x = staticScale.x + Math.sin(count) * 0.02;
                     targetObj.scale.y = staticScale.y + Math.sin(count) * 0.02;
-
+                    targetObj.filters = this.getFilter('glow')
                     targetObj.rotation = staticRotation + Math.sin(count) * 0.02;
 
                     if (count > 28) {
@@ -280,15 +292,29 @@ export default {
         },
 
         gameTimeManage() {
-            let seconds = 0;
+            this.gameTime = 5
+
             const gameTimer = (delta) => {
-                seconds += (1/60) * delta
-                console.log('seconds:', seconds)
+                this.gameTime -= (1/60) * delta
+                console.log(this.gameTime, 'gameTime')
+                if (this.gameTime <= 0) {
+                    this.team_own.ticker.remove(gameTimer)
+                    this.gameTime = null
+                }
             }
 
             this.team_own.ticker.add(gameTimer)
         },
     },
+    computed: {
+        getGameTime() {
+            const baseTime = this.gameTime.toFixed(0)
+            const minute = (baseTime / 60) ? (baseTime / 60 > 9 ? Math.floor(baseTime / 60) : `0${Math.floor(baseTime / 60)}`) : '00'
+            const second = (baseTime % 60) ? (baseTime % 60 > 9 ? baseTime % 60 : `0${baseTime % 60}`) : '00'
+
+            return `${minute}:${second}`
+        }
+    }
 }
 </script>
 <style lang="scss" scoped>
