@@ -67,7 +67,6 @@
             <div>
                 <button class="btn btn-dark mr-3" @click="addEffect('bounce')">들썩들썩 효과</button>
                 <button class="btn btn-dark mr-3" @click="twinkleEffect">반짝이는 효과</button>
-                <button class="btn btn-dark mr-3" @click="getFilter('glow')">테두리 강조 효과</button>
                 <button class="btn btn-dark" @click="gameTimeManage">타이머 테스트</button>
             </div>
             <div class="row m-0 p-0">
@@ -120,6 +119,7 @@ export default {
             showOppLineup: null,
 
             gameTime: null,
+            effectTargets: [],
         }
     },
     mounted() {
@@ -260,9 +260,13 @@ export default {
         },
 
         addEffect(type) {
-            if (type === 'bounce') {
-                const randomNum = parseInt(Math.random() * 10 + 1);
-                const targetObj = this.playersObj[`player_${randomNum}`];
+            if (this.effectTargets.includes(`player_${randomNum}`)) return;
+
+            const randomNum = parseInt(Math.random() * 10 + 1);
+            const targetObj = this.playersObj[`player_${randomNum}`];
+            this.effectTargets.push(`player_${randomNum}`)
+
+            if (type === 'bounce') {    
                 const staticRotation = this.$Utils.cloneObj(targetObj.rotation);
                 const staticScale = this.$Utils.cloneObj({
                     'x': targetObj.scale.x,
@@ -276,9 +280,9 @@ export default {
                     targetObj.scale.x = staticScale.x + Math.sin(count) * 0.02;
                     targetObj.scale.y = staticScale.y + Math.sin(count) * 0.02;
                     targetObj.filters = this.getFilter('glow')
-                    targetObj.rotation = staticRotation + Math.sin(count) * 0.02;
+                    targetObj.rotation = staticRotation + Math.sin(count) * 0.01;
 
-                    if (count > 28) {
+                    if (count > 28 || !this.gameTime) {
                         this.team_own.ticker.remove(bouncEffect)
                         targetObj.rotation = staticRotation
                         targetObj.scale.x = staticScale.x
@@ -296,7 +300,7 @@ export default {
 
             const gameTimer = (delta) => {
                 this.gameTime -= (1/60) * delta
-                console.log(this.gameTime, 'gameTime')
+
                 if (this.gameTime <= 0) {
                     this.team_own.ticker.remove(gameTimer)
                     this.gameTime = null
